@@ -1,13 +1,32 @@
 import { addStyles } from "react-mathquill";
+import Split from "react-split";
 import "./App.css";
+import Diptych from "./components/Diptych";
 import MathExpressionList from "./components/MathExpressionList";
 
 addStyles();
 
 function App() {
 	return (
-		<div className="">
-			<MathExpressionList />
+		<div className="flex w-screen h-screen">
+			<Split
+				sizes={[50, 50]}
+				minSize={100}
+				expandToMin={false}
+				gutterSize={10}
+				gutterAlign="center"
+				snapOffset={30}
+				dragInterval={1}
+				direction="horizontal"
+				cursor="col-resize"
+				className="split flex flex-row w-full h-full">
+				<div className="math-expression-list-pane h-full overflow-auto">
+					<MathExpressionList />
+				</div>
+				<div className="diptych-pane h-full overflow-auto">
+					<Diptych />
+				</div>
+			</Split>
 		</div>
 	);
 }

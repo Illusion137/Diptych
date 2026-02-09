@@ -1,8 +1,7 @@
 #root {
-	max-width: 1280px;
-	margin: 0 auto;
+	min-height: 100vh; /* Ensure it takes full viewport height */
 	padding: 2rem;
-	text-align: center;
+	text-align: left; /* Align text to the left for better readability */
 }
 
 .logo {
@@ -39,4 +38,25 @@
 
 .read-the-docs {
 	color: #888;
+}
+
+/* Gutter styles */
+.gutter {
+	background-color: #eee;
+	background-repeat: no-repeat;
+	background-position: 50%;
+	cursor: col-resize; /* For horizontal split */
+	transition: background-color 0.2s ease; /* Smooth transition on hover */
+}
+
+.gutter:hover {
+	background-color: #ccc; /* Darker background on hover */
+}
+
+.gutter.gutter-horizontal {
+	background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAUAAAAeCAYAAADkG+y/AAAAIklEQVQoU2M4c+bMfxlIBGMDRRaCwYgEGACiADAD/gcGOygzL/YAAAAASUVORK5CYII=');
+}
+
+.gutter.gutter-vertical {
+	background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAB4AAAAFCAYAAABaW/zXAAAAIklEQVQoU2M4c+bMfxlIBGMDRRaCwYgEGACiADAD/gcGOygzL/YAAAAASUVORK5CYII=');
 }

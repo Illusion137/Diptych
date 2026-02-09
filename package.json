@@ -10,12 +10,23 @@
 		"preview": "vite preview"
 	},
 	"dependencies": {
+		"@milkdown/core": "^7.18.0",
+		"@milkdown/plugin-math": "^7.5.9",
+		"@milkdown/preset-commonmark": "^7.18.0",
+		"@milkdown/react": "^7.18.0",
+		"@milkdown/theme-nord": "^7.18.0",
 		"@tailwindcss/vite": "^4.1.18",
+		"fuse.js": "^7.1.0",
 		"jquery": "^4.0.0",
+		"katex": "^0.16.28",
 		"mathquill": "^0.10.1-a",
 		"react": "^19.2.0",
 		"react-dom": "^19.2.0",
+		"react-markdown": "^10.1.0",
 		"react-mathquill": "^1.0.4",
+		"react-split": "^2.0.14",
+		"rehype-katex": "^7.0.1",
+		"remark-math": "^6.0.0",
 		"tailwindcss": "^4.1.18",
 		"uuid": "^13.0.0"
 	},
