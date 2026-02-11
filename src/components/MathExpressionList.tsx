@@ -1,5 +1,7 @@
-import { forwardRef, useCallback, useEffect, useImperativeHandle, useRef, useState } from "react";
+import { forwardRef, useCallback, useEffect, useImperativeHandle, useRef, useState, type RefObject } from "react";
 import { v4 } from "uuid";
+import { useEvaluator } from "../hooks/use_evaluator";
+import { array_empty, unit_to_latex, type UnitVec } from "../utils";
 import MathExpressionEditor, { type MathExpressionEditorHandle } from "./MathExpressionEditor";
 
 export interface MathExpressionListHandle {
@@ -10,75 +12,101 @@ interface Expression {
 	id: string;
 	latex: string;
 	unit_latex: string;
-	evaluated_result?: string | null;
+	evaluated_result?: number | null;
 	evaluation_error?: string | null;
-	has_unit_from_evaluation?: boolean;
+	evalulated_unit_latex?: string;
+	forced_unit_latex?: string;
 }
 
-// Placeholder for the external evaluation function
-// This will be replaced by the actual __evaluate__ function later
-const __evaluate__ = async (expressions: { id: string; latex: string; unit_latex: string }[]) => {
-	console.log("Evaluating expressions:", expressions);
-	// Simulate async evaluation
-	return new Promise<
-		{
-			id: string;
-			evaluated_result: string | null;
-			evaluation_error: string | null;
-			has_unit_from_evaluation: boolean;
-			unit_latex: string;
-		}[]
-	>((resolve) => {
-		setTimeout(() => {
-			const results = expressions.map((exp) => {
-				let evaluated_result: string | null = null;
-				let evaluation_error: string | null = null;
-				let has_unit_from_evaluation = false;
-				let unit_latex = exp.unit_latex;
-
-				// Simple dummy evaluation logic
-				if ((exp.latex ?? "").includes("error")) {
-					evaluation_error = "Syntax Error";
-				} else if (exp.latex === "") {
-					evaluated_result = null;
-				} else if (exp.latex === "2+2") {
-					evaluated_result = "4";
-				} else if (exp.latex.includes("\\pi")) {
-					evaluated_result = "3.14159";
-					has_unit_from_evaluation = true;
-					unit_latex = "\\text{rad}";
-				} else if (exp.latex === "5\\text{cm}") {
-					evaluated_result = "5";
-					has_unit_from_evaluation = true;
-					unit_latex = "\\text{cm}";
-				} else {
-					evaluated_result = exp.latex;
-				}
-
-				return {
-					id: exp.id,
-					evaluated_result,
-					evaluation_error,
-					has_unit_from_evaluation,
-					unit_latex,
-				};
-			});
-			resolve(results);
-		}, 300);
-	});
-};
+interface EvaluationResult {
+	id: string;
+	evaluated_result?: number;
+	evaluation_error?: string;
+	evalulated_unit_latex?: string;
+	forced_unit_latex?: string;
+	unit_latex?: string;
+}
 
 const MathExpressionList = forwardRef<MathExpressionListHandle, object>((_props, ref) => {
 	const [expressions, set_expressions] = useState<Expression[]>(() => [{ id: v4(), latex: "", unit_latex: "" }]);
 	const [focused_index, set_focused_index] = useState(0);
-	const editor_refs = useRef<(MathExpressionEditorHandle | null)[]>([]);
 	const [refresh_eval_trigger, set_refresh_eval_trigger] = useState(0);
+	const editor_refs = useRef<RefObject<MathExpressionEditorHandle>[]>([]);
+
+	const { evaluator } = useEvaluator({
+		default_constants: {
+			e_c: ["1.602*10^{-19}", "\\C"],
+			e_0: ["8.854187817*10^{-12}", "\\frac{\\F}{\\m}"],
+			k: ["8.99*10^9", "\\frac{\\N\\m^2}{\\C^2}"],
+			c: ["2.99792458*10^8", "\\frac{\\m}{\\s}"],
+			m_e: ["9.1938*10^{-31}", "\\kg"],
+			m_p: ["1.67262*10^{-27}", "\\kg"],
+			N_A: ["6.022*10^{-23}", "\\mol^{-1}"],
+		},
+	});
 
 	useImperativeHandle(ref, () => ({
 		force_evaluate: () => {
 			set_refresh_eval_trigger((prev) => prev + 1);
 		},
 	}));
+
+	const __evaluate__ = useCallback(
+		async (expr_list: Array<{ id: string; latex: string; unit_latex?: string }>): Promise<EvaluationResult[]> => {
+			if (!evaluator) {
+				return expr_list.map((exp) => ({
+					id: exp.id,
+					evaluation_error: "Evaluator not initialized",
+				}));
+			}
+
+			try {
+				// Extract just the latex expressions for batch evaluation
+				const latex_expressions = expr_list.map((exp) => {
+					if (!exp.unit_latex) return exp.latex;
+					if (!exp.latex.includes("=")) return exp.latex;
+					const split = exp.latex.split("=");
+					if (split.length != 2) return exp.latex;
+					return `${split?.[0] ?? ""} = \\left(${split?.[1] ?? ""}\\right)\\cdot${exp.unit_latex ?? "1"}`;
+				});
+
+				// console.log(latex_expressions);
+
+				// Evaluate all expressions in one batch
+				const eval_results = evaluator.eval_batch(latex_expressions);
+				// Map results back to the original format with IDs
+				return expr_list.map((exp, index) => {
+					const result = eval_results[index];
+					if (result.success) {
+						return {
+							id: exp.id,
+							evaluated_result: result.value,
+							evaluation_error: undefined,
+							unit_latex: exp.unit_latex,
+							evalulated_unit_latex: array_empty(result.unit ?? []) ? "" : unit_to_latex(result.unit as UnitVec),
+							forced_unit_latex: exp.unit_latex || array_empty(result.unit ?? []) ? "" : unit_to_latex(result.unit as UnitVec),
+						};
+					} else {
+						return {
+							id: exp.id,
+							evaluated_result: undefined,
+							evaluation_error: result.error,
+							unit_latex: exp.unit_latex,
+							evalulated_unit_latex: "",
+							forced_unit_latex: "",
+						};
+					}
+				});
+			} catch (error) {
+				console.error("Batch evaluation failed:", error);
+				return expr_list.map((exp) => ({
+					id: exp.id,
+					evaluation_error: error instanceof Error ? error.message : "Unknown error",
+				}));
+			}
+		},
+		[evaluator]
+	);
 
 	// Effect to handle evaluation when expressions change
 	useEffect(() => {
@@ -97,10 +125,11 @@ const MathExpressionList = forwardRef<MathExpressionListHandle, object>((_props,
 					if (result) {
 						return {
 							...prev_exp,
-							evaluated_result: result.evaluated_result,
-							evaluation_error: result.evaluation_error,
-							has_unit_from_evaluation: result.has_unit_from_evaluation,
-							unit_latex: result.unit_latex,
+							evaluated_result: result.evaluated_result ?? 0,
+							evaluation_error: result.evaluation_error ?? null,
+							forced_unit_latex: result.forced_unit_latex ?? "",
+							evalulated_unit_latex: result.evalulated_unit_latex ?? "",
+							unit_latex: result.unit_latex ?? prev_exp.latex,
 						};
 					}
 					return prev_exp;
@@ -130,6 +159,19 @@ const MathExpressionList = forwardRef<MathExpressionListHandle, object>((_props,
 			return prev_expressions;
 		});
 	}, []);
+
+	const handle_click = useCallback(
+		(id: string) => {
+			set_focused_index((prev_index) => {
+				const index = expressions.findIndex((exp) => exp.id === id);
+				if (index != -1) {
+					return index;
+				}
+				return prev_index;
+			});
+		},
+		[expressions]
+	);
 
 	const handle_enter_pressed = useCallback((id: string) => {
 		set_expressions((prev_expressions) => {
@@ -165,13 +207,10 @@ const MathExpressionList = forwardRef<MathExpressionListHandle, object>((_props,
 
 	const handle_arrow_down = useCallback(
 		(id: string) => {
-			set_focused_index((prev_index) => {
-				const index = expressions.findIndex((exp) => exp.id === id);
-				if (index < expressions.length - 1) {
-					return index + 1;
-				}
-				return prev_index;
-			});
+			const current_index = expressions.findIndex((exp) => exp.id === id);
+			if (current_index < expressions.length - 1) {
+				set_focused_index(current_index + 1);
+			}
 		},
 		[expressions]
 	);
@@ -206,87 +245,30 @@ const MathExpressionList = forwardRef<MathExpressionListHandle, object>((_props,
 	// Focus the editor when focused_index changes
 	useEffect(() => {
 		if (editor_refs.current[focused_index]) {
-			editor_refs.current[focused_index]?.focus();
+			editor_refs.current[focused_index]?.current.focus();
 		}
 	}, [focused_index]);
 
-	const handle_cursor_left_out = useCallback(
-		(id: string) => {
-			set_focused_index((prev_index) => {
-				const index = expressions.findIndex((exp) => exp.id === id);
-				if (index > 0) {
-					return index - 1;
-				}
-				return prev_index;
-			});
-		},
-		[expressions]
-	);
-
-	const handle_cursor_right_out = useCallback(
-		(id: string) => {
-			const current_expression = expressions.find((exp) => exp.id === id);
-			const index = expressions.findIndex((exp) => exp.id === id);
-
-			if (current_expression && (current_expression.initial_unit_latex !== "" || current_expression.has_unit_from_evaluation)) {
-				// If current expression has a unit field, focus it
-				editor_refs.current[index]?.focus_unit_field();
-			} else {
-				// Otherwise, move to the next expression
-				set_focused_index((prev_index) => {
-					if (index < expressions.length - 1) {
-						return index + 1;
-					}
-					return prev_index;
-				});
-			}
-		},
-		[expressions]
-	);
-
-	const handle_cursor_left_out_unit = useCallback(
-		(id: string) => {
-			const index = expressions.findIndex((exp) => exp.id === id);
-			editor_refs.current[index]?.focus(); // Focus the main field of the current editor
-		},
-		[expressions]
-	);
-
-	const handle_cursor_right_out_unit = useCallback(
-		(id: string) => {
-			set_focused_index((prev_index) => {
-				const index = expressions.findIndex((exp) => exp.id === id);
-				if (index < expressions.length - 1) {
-					return index + 1;
-				}
-				return prev_index;
-			});
-		},
-		[expressions]
-	);
-
 	return (
-		<div>
+		<div className="w-full">
 			{expressions.map((exp, index) => (
 				<MathExpressionEditor
 					key={exp.id}
-					ref={(el) => (editor_refs.current[index] = el)}
+					ref={editor_refs.current[index]}
 					initial_latex={exp.latex}
 					initial_unit_latex={exp.unit_latex}
+					forced_unit_latex={exp.forced_unit_latex}
 					is_focused={focused_index === index}
 					evaluated_result={exp.evaluated_result}
+					evalulated_unit_latex={exp.evalulated_unit_latex}
 					evaluation_error={exp.evaluation_error}
-					has_unit_from_evaluation={exp.has_unit_from_evaluation}
 					on_latex_change={(new_latex) => handle_latex_change(exp.id, new_latex)}
 					on_unit_latex_change={(new_unit_latex) => handle_unit_latex_change(exp.id, new_unit_latex)}
 					on_enter_pressed={() => handle_enter_pressed(exp.id)}
 					on_arrow_up={() => handle_arrow_up(exp.id)}
 					on_arrow_down={() => handle_arrow_down(exp.id)}
 					on_backspace_pressed={() => handle_backspace_pressed(exp.id)}
-					on_cursor_left_out={() => handle_cursor_left_out(exp.id)}
-					on_cursor_right_out={() => handle_cursor_right_out(exp.id)}
-					on_cursor_left_out_unit={() => handle_cursor_left_out_unit(exp.id)}
-					on_cursor_right_out_unit={() => handle_cursor_right_out_unit(exp.id)}
+					on_click={() => handle_click(exp.id)}
 				/>
 			))}
 		</div>

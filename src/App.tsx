@@ -8,7 +8,9 @@ addStyles();
 
 function App() {
 	return (
-		<div className="flex w-screen h-screen">
+		<div className="flex w-full h-[calc(100vh-4rem)]">
+			{/* <MathExpressionList /> */}
+			{/* <Diptych /> */}
 			<Split
 				sizes={[50, 50]}
 				minSize={100}

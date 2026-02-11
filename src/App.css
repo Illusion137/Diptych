@@ -2,6 +2,7 @@
 	min-height: 100vh; /* Ensure it takes full viewport height */
 	padding: 2rem;
 	text-align: left; /* Align text to the left for better readability */
+	width: 100%;
 }
 
 .logo {
@@ -54,9 +55,9 @@
 }
 
 .gutter.gutter-horizontal {
-	background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAUAAAAeCAYAAADkG+y/AAAAIklEQVQoU2M4c+bMfxlIBGMDRRaCwYgEGACiADAD/gcGOygzL/YAAAAASUVORK5CYII=');
+	background-image: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAUAAAAeCAYAAADkG+y/AAAAIklEQVQoU2M4c+bMfxlIBGMDRRaCwYgEGACiADAD/gcGOygzL/YAAAAASUVORK5CYII=");
 }
 
 .gutter.gutter-vertical {
-	background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAB4AAAAFCAYAAABaW/zXAAAAIklEQVQoU2M4c+bMfxlIBGMDRRaCwYgEGACiADAD/gcGOygzL/YAAAAASUVORK5CYII=');
+	background-image: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAB4AAAAFCAYAAABaW/zXAAAAIklEQVQoU2M4c+bMfxlIBGMDRRaCwYgEGACiADAD/gcGOygzL/YAAAAASUVORK5CYII=");
 }

@@ -1,5 +1,6 @@
 import { forwardRef, useEffect, useImperativeHandle, useRef, useState } from "react";
 import { EditableMathField, StaticMathField, type MathField } from "react-mathquill";
+import { latex_unit_splitter, number_to_maybe_scientific_notation } from "../utils";
 
 export interface MathExpressionEditorHandle {
 	focus: () => void;
@@ -10,19 +11,17 @@ interface MathExpressionEditorProps {
 	initial_latex: string;
 	initial_unit_latex?: string;
 	is_focused: boolean;
-	evaluated_result?: string | null;
+	evaluated_result?: number | null;
 	evaluation_error?: string | null;
-	has_unit_from_evaluation?: boolean;
+	evalulated_unit_latex?: string;
+	forced_unit_latex?: string;
 	on_latex_change: (latex: string) => void;
 	on_unit_latex_change: (unit_latex: string) => void;
 	on_enter_pressed: () => void;
 	on_arrow_up: () => void;
 	on_arrow_down: () => void;
 	on_backspace_pressed?: () => void;
-	on_cursor_left_out?: () => void;
-	on_cursor_right_out?: () => void;
-	on_cursor_left_out_unit?: () => void;
-	on_cursor_right_out_unit?: () => void;
+	on_click?: () => void;
 }
 
 const MathExpressionEditor = forwardRef<MathExpressionEditorHandle, MathExpressionEditorProps>(
@@ -33,20 +32,38 @@ const MathExpressionEditor = forwardRef<MathExpressionEditorHandle, MathExpressi
 			is_focused,
 			evaluated_result,
 			evaluation_error,
-			has_unit_from_evaluation,
+			evalulated_unit_latex = "",
+			forced_unit_latex = "",
 			on_latex_change,
 			on_unit_latex_change,
 			on_enter_pressed,
 			on_arrow_up,
 			on_arrow_down,
 			on_backspace_pressed,
+			on_click,
 		},
 		ref
 	) => {
 		const [math_latex, set_math_latex] = useState(initial_latex);
 		const [unit_latex, set_unit_latex] = useState(initial_unit_latex);
+		const previous_math_latex_ref = useRef("");
 		const math_field_ref = useRef<MathField | null>(null);
 		const unit_math_field_ref = useRef<MathField | null>(null);
+		const container_ref = useRef<HTMLDivElement>(null);
+
+		const on_arrow_down_ref = useRef(on_arrow_down);
+		const on_arrow_up_ref = useRef(on_arrow_up);
+		const on_enter_pressed_ref = useRef(on_enter_pressed);
+		const on_backspace_pressed_ref = useRef(on_backspace_pressed);
+
+		useEffect(() => {
+			on_arrow_down_ref.current = on_arrow_down;
+			on_arrow_up_ref.current = on_arrow_up;
+			on_enter_pressed_ref.current = on_enter_pressed;
+			on_backspace_pressed_ref.current = on_backspace_pressed;
+		}, [on_arrow_down, on_arrow_up, on_enter_pressed, on_backspace_pressed]);
+
+		const static_unit: boolean = !!forced_unit_latex;
 
 		useImperativeHandle(ref, () => ({
 			focus: () => {
@@ -63,26 +80,27 @@ const MathExpressionEditor = forwardRef<MathExpressionEditorHandle, MathExpressi
 			}
 		}, [is_focused]);
 
-		const handle_key_down = (event: React.KeyboardEvent) => {
-			if (event.key === "Enter") {
-				event.preventDefault();
-				on_enter_pressed();
-			} else if (event.key === "ArrowUp") {
-				event.preventDefault();
-				on_arrow_up();
-			} else if (event.key === "ArrowDown") {
-				event.preventDefault();
-				on_arrow_down();
-			} else if (event.key === "Backspace" && math_field_ref?.current?.latex?.() === "") {
-				event.preventDefault();
-				on_backspace_pressed?.();
-			}
-		};
+		function focus_nearest_input(x: number) {
+			if (!container_ref.current) return;
+			const rect = container_ref.current.getBoundingClientRect();
+			const relative_x = x - rect.left;
+			const ratio = relative_x / rect.width;
+			const left_percentage = 0.85;
+			if (ratio <= left_percentage || static_unit) math_field_ref.current?.focus();
+			else unit_math_field_ref.current?.focus();
+		}
 
 		return (
-			<div className="flex items-center" onKeyDown={handle_key_down}>
+			<div className="flex items-center w-full">
 				<div
-					className={`flex-1 flex items-center transition-all duration-200 py-3 px-4 text-lg border ${is_focused ? "border-purple-500 shadow-purple-300 shadow-md" : "border-gray-300"}`}
+					ref={container_ref}
+					className={`cursor-pointer flex-1 flex items-center transition-all duration-200 py-3 px-4 text-lg border ${
+						is_focused ? "border-purple-500 shadow-purple-300 shadow-md" : "border-gray-300"
+					}`}
+					onClick={(e) => {
+						focus_nearest_input(e.clientX);
+						on_click?.();
+					}}
 					style={{
 						minWidth: "200px",
 					}}>
@@ -99,14 +117,27 @@ const MathExpressionEditor = forwardRef<MathExpressionEditorHandle, MathExpressi
 								sumStartsWithNEquals: true,
 								charsThatBreakOutOfSupSub: "+-=,",
 								autoCommands: "pi theta sqrt sum int prod coprod nthroot alpha beta phi lambda sigma delta mu epsilon varepsilon Alpha Beta Phi Lambda Sigma Delta Mu Epsilon",
-								autoOperatorNames: "ln sin cos tan sec csc cot log abs nCr nPr ciel fact floor round arcsin arccos arctan arcsec arccsc arccot",
+								autoOperatorNames: "ln sin cos tan sec csc cot log abs nCr nPr ceil fact floor round arcsin arccos arctan arcsec arccsc arccot",
 								handlers: {
 									moveOutOf(direction) {
-										if (direction === 1) unit_math_field_ref.current?.focus();
+										if (direction === 1 && !static_unit) unit_math_field_ref.current?.focus();
+									},
+									enter() {
+										on_enter_pressed_ref.current?.();
+									},
+									deleteOutOf() {
+										on_backspace_pressed_ref.current?.();
+									},
+									upOutOf() {
+										on_arrow_up_ref.current?.();
+									},
+									downOutOf() {
+										on_arrow_down_ref.current();
 									},
 								},
 							}}
 							onChange={(mathField) => {
+								previous_math_latex_ref.current = math_latex;
 								const new_expression_latex = mathField?.latex() ?? "";
 								set_math_latex(new_expression_latex);
 								on_latex_change(new_expression_latex);
@@ -119,7 +150,7 @@ const MathExpressionEditor = forwardRef<MathExpressionEditorHandle, MathExpressi
 
 					{/* Evaluation Result / Error */}
 					<div className="ml-4 text-gray-700 flex items-center flex-shrink-0">
-						{evaluation_error ? (
+						{evaluation_error && math_latex.trim() ? (
 							<div className="flex items-center gap-2 text-red-600 text-sm">
 								<svg className="w-4 h-4 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
 									<path
@@ -132,19 +163,19 @@ const MathExpressionEditor = forwardRef<MathExpressionEditorHandle, MathExpressi
 									Warning
 								</span>
 							</div>
-						) : evaluated_result ? (
+						) : math_latex.trim() ? (
 							<span className="flex items-center gap-2">
 								<span className="text-sm text-gray-700">=</span>
-								<StaticMathField>{evaluated_result}</StaticMathField>
+								<StaticMathField>{String(number_to_maybe_scientific_notation(evaluated_result ?? 0)) + (static_unit ? "" : "" + evalulated_unit_latex)}</StaticMathField>
 							</span>
 						) : null}
 					</div>
 
 					{/* Unit Editor (on the far right) */}
 					<div className="ml-4 flex-shrink-0">
-						{has_unit_from_evaluation ? (
+						{static_unit ? (
 							<div className="text-gray-500">
-								<StaticMathField>{initial_unit_latex}</StaticMathField>
+								<StaticMathField>{forced_unit_latex}</StaticMathField>
 							</div>
 						) : (
 							<div>
@@ -155,9 +186,22 @@ const MathExpressionEditor = forwardRef<MathExpressionEditorHandle, MathExpressi
 									}}
 									config={{
 										spaceBehavesLikeTab: true,
+										autoCommands: "mu",
 										handlers: {
 											moveOutOf(direction) {
 												if (direction === -1) math_field_ref.current?.focus();
+											},
+											deleteOutOf() {
+												on_backspace_pressed_ref.current?.();
+											},
+											enter() {
+												on_enter_pressed_ref.current?.();
+											},
+											upOutOf() {
+												on_arrow_up_ref.current?.();
+											},
+											downOutOf() {
+												on_arrow_down_ref.current?.();
 											},
 										},
 									}}
@@ -165,7 +209,7 @@ const MathExpressionEditor = forwardRef<MathExpressionEditorHandle, MathExpressi
 									onChange={(mathField) => {
 										const new_unit_latex = mathField?.latex() ?? "";
 										set_unit_latex(new_unit_latex);
-										on_unit_latex_change(new_unit_latex);
+										on_unit_latex_change(latex_unit_splitter(new_unit_latex));
 									}}
 								/>
 							</div>
