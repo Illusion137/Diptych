@@ -110,7 +110,7 @@ const MathExpressionEditor = forwardRef<MathExpressionEditorHandle, MathExpressi
 								autoSubscriptNumerals: true,
 								sumStartsWithNEquals: true,
 								charsThatBreakOutOfSupSub: "+-=,",
-								autoCommands: "pi theta sqrt sum int prod coprod nthroot alpha beta phi lambda sigma delta mu epsilon varepsilon Alpha Beta Phi Lambda Sigma Delta Mu Epsilon",
+								autoCommands: "pi pm theta sqrt sum int prod coprod nthroot alpha beta phi lambda sigma delta mu epsilon varepsilon Alpha Beta Phi Lambda Sigma Delta Mu Epsilon",
 								autoOperatorNames: "ln sin cos tan sec csc cot log abs nCr nPr ceil fact floor round arcsin arccos arctan arcsec arccsc arccot val unit",
 								handlers: {
 									moveOutOf(direction) {

@@ -1,3 +1,5 @@
+export const is_tauri = typeof window !== "undefined" && "__TAURI_INTERNALS__" in window;
+
 export interface MathExpression {
     variable_name: string;
     value: number;

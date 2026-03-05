@@ -277,20 +277,20 @@ const MathExpressionList = forwardRef<MathExpressionListHandle, object>((_props,
 			<div className="h-10" />
 			{related_formulas.map((formula) => (
 				<div
-					className="relative flex items-center w-full"
+					className="relative flex items-center w-[80%]"
 					style={{ left: formula.category === "---" ? 20 : formula.category === "------" ? 40 : 0 }}
 					key={formula.latex}
 					onClick={() => handle_formula_pressed(formula.latex)}>
 					<div className="cursor-pointer flex-1 flex flex-row items-center transition-all duration-200 py-3 px-4 text-lg border border-purple-500 shadow-purple-300">
-						<p className="absolute top-2 left-2">{formula.name}</p>
+						<p className="absolute top-2 left-2 text-[14px]">{formula.name}</p>
 						<div className="relative w-[30%] cursor-pointer top-3">
 							<StaticMathField>{formula.latex}</StaticMathField>
 						</div>
-						<div className="flex flex-col flex-wrap h-30">
+						<div className="relative flex flex-col flex-wrap top-2">
 							{formula.variables.map((variable) => (
-								<div key={formula.name + variable.name} className="flex flex-row mr-5 items-center w-60">
-									<p>{variable.description}&nbsp;</p>
-									<StaticMathField>{`\\mathrm{${variable.name}}\\cdot${variable.units}`}</StaticMathField>
+								<div key={formula.name + variable.name} className="flex flex-row mr-5 items-center text-[14px]">
+									<StaticMathField>{`\\mathrm{${variable.name}}\\left(${variable.units}\\right)`}</StaticMathField>
+									<p>- {variable.description}</p>
 								</div>
 							))}
 						</div>

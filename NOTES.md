@@ -1262,98 +1262,344 @@ Potential drops:$\Delta V = -Ir  - IR$
 
 Potential loops$E - Ir - Ir = 0$
 
-## Key Formulas Summary
+### Energy and Power in Electric Circuits
 
-### Electric Force and Field
+The charge dq that moves between terminals a and b in the time interval dt is equal to $dq = idt$
 
--   Coulomb's Law: $F = k\frac{|q_1q_2|}{r^2}$
--   Electric Field: $\vec{E} = \frac{\vec{F}}{q_0} = k\frac{q}{r^2}\hat{r}$
--   Field from continuous charge: $\vec{E} = k\int\frac{dq}{r^2}\hat{r}$
+Since the charge moved through a descrease in potential of magnitude V, the electric potential energy decreases in magnitude by$dU = dqV=tdtV$
 
-### Gauss's Law
+Power: $p=V_{ab}I$
 
--   $\oint \vec{E} \cdot d\vec{A} = \frac{Q_{\text{enc}}}{\varepsilon_0}$
--   Line charge: $E = \frac{\lambda}{2\pi\varepsilon_0 r}$
--   Plane sheet: $E = \frac{\sigma}{2\varepsilon_0}$
+Warning: It might be tempting to think that power is energy, but NO!
 
-### Potential
+Power is in Watts
 
--   Definition: $V = \frac{U}{q_0}$
--   Point charge: $V = k\frac{q}{r}$
--   Potential difference: $V_a - V_b = -\int_b^a \vec{E} \cdot d\vec{l}$
--   Field from potential: $\vec{E} = -\nabla V$
+For Ohm's Law: the power delivered by the circuit into the resistor is:
 
-### Capacitors
+$p = V_{ab}I = I^2R = \frac{V_{ab}^2}{R}$
 
--   Capacitance: $C = \frac{Q}{V}$
--   Parallel plate: $C = \frac{\varepsilon_0 A}{d}$
--   Series: $\frac{1}{C_{\text{eq}}} = \sum_i \frac{1}{C_i}$
--   Parallel: $C_{\text{eq}} = \sum_i C_i$
--   Energy: $U = \frac{1}{2}QV = \frac{1}{2}CV^2 = \frac{Q^2}{2C}$
--   Energy density: $u = \frac{1}{2}\varepsilon_0 E^2$
+p = power
 
-### Dielectrics
+$V_{ab}$ = Voltage across resistor
 
--   With dielectric: $C = KC_0$, $E = \frac{E_0}{K}$
--   Permittivity: $\varepsilon = K\varepsilon_0$
+I = current in resistor
 
----
+What happens in a resistor?
 
-## Constants to Remember
+-   Moving charges collide with atoms in the resistor and transfer some of their energy to those atoms, increasing the internal energy, thus increasing the temperature of the resistor.
+-   Thus we can say that the energy in the resistor is "dissapated" in the resistor.
 
--   Elementary charge: $e = 1.602 \times 10^{-19}$ C
--   Coulomb's constant: $k = 8.99 \times 10^9$ N·m²/C²
--   Permittivity of free space: $\varepsilon_0 = 8.854 \times 10^{-12}$ C²/(N·m²)
--   Electron volt: $1 \text{ eV} = 1.602 \times 10^{-19}$ J
--   $k = \frac{1}{4\pi\varepsilon_0}$
+    -   Electrical Energy into thermal energy
 
----
+### Power
 
-## Problem-Solving Strategies
+If we know the EMF and internal resistance, we can use the equation.
 
-### For Electric Field Problems
+$V_{ab} = E_{mf} - Ir$
 
-1. Identify charge distribution and symmetry
-2. Choose appropriate method:
-    - Point charges → superposition
-    - High symmetry → Gauss's law
-    - Continuous distribution → integration
-3. Draw diagram showing field directions
-4. Check units and limiting cases
+r = internal resistance
 
-### For Potential Problems
+Multiply both sides by I (current):
 
-1. Identify if you need $V$ or $\vec{E}$
-2. Use scalar addition for multiple charges (easier!)
-3. Check reference point (usually $V = 0$ at infinity)
-4. Relate to field if needed: $\vec{E} = -\nabla V$
+$P = V_{ab}I = E_{mf}I - I^2r$
 
-### For Capacitor Problems
+$E_{mf}I \rightarrow$if a small amount of charge sq passes through the battery of emf in time dt, the battery does work $(W = Edq)$
 
-1. Identify geometry → choose formula
-2. For networks: series or parallel?
-3. For energy: which quantities are known?
-4. Check if dielectric is present
+The rate of the work is $\frac{(Esq)}{dt} = EI$thus EI is the rate at which the EMF devices delivers energy to the rest of the circuit.
 
-### For Gauss's Law Problems
+$I^2R \rightarrow$Rate at which energy dissipates as thermal energy in the resistor.
 
-1. Identify symmetry: spherical, cylindrical, or planar?
-2. Choose appropriate Gaussian surface
-3. Find enclosed charge
-4. Evaluate flux integral (often simplified by symmetry)
-5. Solve for $E$
+$EI-I^2r \rightarrow$Energy that is delivered to the circuit by the EMF devices, but does not appear as thermal energy in the resistor.
 
----
+With alternate EMF sources we get the equation:
 
-## Common Mistakes to Avoid
+$V_{ab} = E+Ir$
 
-1. **Forgetting vector nature of** $\vec{E}$ and $\vec{F}$ (but $V$ and $U$ are scalars!)
-2. **Sign errors** with charges in formulas
-3. **Not inverting** after summing capacitors in series
-4. **Confusing** $U$ (energy) with $V$ (potential)
-5. **Wrong reference point** for potential
-6. **Forgetting** $K$ when dielectric is present
-7. **Using wrong energy formula** for capacitor problem
-8. **Assuming equipotential** where it's not justified
+$P = V_{ab}I = EI + I^2r$
 
----
+$EI \rightarrow$ rate of conversion
+
+$EI + I^2r \rightarrow$ net electrical power input
+
+### Metalic Conduction
+
+No electric field:
+
+The average time between collisions is called the mean free time $\tau$
+
+Each electron has an initial velocity is $v_0$but the average is 0.
+
+$(v_0)a_v = 0$
+
+With electic field:
+
+Force:$F = qE$
+
+Force in the direction of force:$d=\frac{F}{m} = \frac{qE}{m}$
+
+Velocity at a moment:$v = v_0 + d\tau$
+
+$v_{av} = d\tau = \frac{q\tau}{m}E = v_d$
+
+$J = nqv_d = \frac{nq^2\tau}{m} \rightarrow E = \frac{m}{nq^2\tau}J$
+
+$\rho = \frac{m}{ne^2\tau}$
+
+As temperature increases, atoms vibrate more and this $\tau$decreases, thus the resisitivity $\rho$ increases.
+
+### DC vs AC
+
+Direct Current: The direction of the current does not change with time.
+
+Alternating Current: In which current oscillates back and forth.
+
+#### Resistors in Series
+
+In series the resistors have the same current in all of them. But not the voltage.
+
+$V_{ax} = IR_1, V_{xy} = IR_2, V_{yb} = IR_3$
+
+The potential difference across the entire combination is the sum of the individual potenital differences.
+
+$R_{eq} = R_1 + R_2 + R_3 + ...$
+
+#### Resistors in Parallel
+
+$I_1 = \frac{V_{ab}}{R_1}$
+
+$\frac{I}{V_{ab}} = \frac{1}{R_1} + \frac{1}{R_2} = \frac{1}{R_{eq}}$
+
+In a certain way, R\~$\frac{1}{c}$
+
+Compare voltage equations:
+
+$V_c = \frac{q}{C}$, $V_R=IR$
+
+#### Kirchhoff's Rules
+
+Junction Rule - A junction is a point where threee or more conductos meet
+
+-   Valid at any junction:$\sum I = 0$
+-   Charge can not be created or destroyed.
+-   What comes in must come out.
+
+Loop Rule - A loop being a closed subcircuit
+
+-   $\sum V = 0$
+-   Electostatic force is conserved
+-   As you walk through your loop, has my potential increased or decreased.
+-   Depending on direction you can lose or gain potential when travelling through components
+-   What is the direction of the EMF?
+-   How are we going though resistors, and what direction is the current entering the resistor.
+
+Negative power means we are storing energy
+
+Galvanometer measures current that passes through it.
+
+An ammeter measures the current passinng through it. Low Resistance, connected in series of component we are trying to figure out current of. Just a combination of Galvanometer and Shunt Resistor.
+
+Voltmeter measures voltage. Very high resistance, connect in parallel to what you are trying to measure. Just a combination of Galvanometer and Shunt Resistor.
+
+Ohmmeter measures resistance; connected in series.
+
+Digital Multimeter, measures voltage, current, or resistance.
+
+Potentiometer measure the EMF of a source without drawing any current from the source. Connect to certain part of a resistor. For no deflection current must be 0.
+
+$E_2 - IR_{cb} = 0 \rightarrow E_0 = IR{cb}$
+
+R-C Circuit to change a capacitor we have to to a close the switch.
+
+$v_{bc} = 0$
+
+$v_{ab} = E$
+
+$I_0 = \frac{v_{ab}}{R}$
+
+As t increases, the voltage across the capacitor increases. The voltage across the resistor decreases.
+
+Sum of 2 voltages still add together
+
+$v_{ab} + v_{bc} = E$
+
+The charge on the capacitor increases while the current decreases.
+
+After t increases for a long time, the battery can't put any more charge in the capacitor.
+
+$v_bc = E$
+
+The voltage across the resistor decreases to 0. And the current across the resistor decreases to 0.
+
+Gain voltage: $+E$
+
+Lose voltage: $-v_{ab} = -iR$
+
+Lose voltage: $-v_{bc} = \frac{-q}{C}$
+
+Equation for loop:
+
+$E - iR - \frac{q}{C} = 0$
+
+$i = \frac{E}{R}-\frac{q}{RC}$
+
+$\frac{dq}{dt} = \frac{E}{R}-\frac{q}{RC} = -\frac{dt}{RC}$
+
+Integrate
+
+$-\frac{t}{RC} \rightarrow \frac{q-CE}{-CE} = e^{-\frac{t}{RC}}$
+
+t = 0 :$q = 0.63CE$
+
+$q = CE(1-e^{\frac{-t}{RC}}) = Q_f(1-e^{\frac{-t}{RC}})$
+
+$i = \frac{dq}{dt} = \frac{E}{R}e^{\frac{-t}{RC}} = I_0e^{\frac{-t}{RC}}$
+
+$i = \frac{q}{RC}$
+
+$I_0 = -\frac{Q}{RC}$
+
+$q = Q_0e^{-t/RC}$
+
+$-\frac{Q_0}{RC}e^{-t/RC}$
+
+Charging RC circuit:$E=\frac{q}{C}+iR$
+
+$Ei = \frac{iq}{C} + i^2R$
+
+### Power Distributed Systems
+
+AC circuits
+
+"Hot line" - Alternating Sinusoidal Voltage with root-mean-square value of 120V.
+
+"Neutral line" is connected to "ground"
+
+##### Circuit Overloads
+
+A Fuse / Circuit Breaker.
+
+Fuse burns itself an breaks on failure.
+
+Breaker trips itself and disconnects itself from the rest of the circuit.
+
+## Magnetic Physics
+
+### Magnetic Poles
+
+One end points north (N) and one end points south (S)
+
+Opposites attract, likes repel
+
+Both South and North can attract an uncharged metal object like a nail
+
+Earth's (current) magnetic field is oriented so that its megnetic field lines originate from the geographical south pole and terminates at the geographic north pole.
+
+Thus Earth's North and South are reversed.
+
+The magnetic axis is not quite parallel to its geographic axis (the axis of rotation), so a compass reading deviates somewhat from geographic north.
+
+This deviation varies with location, is called magnetic declination or magnetic variation.
+
+Its angle up or down is called magnetic inclination.
+
+Magnetic poles always come in pairs
+
+There is no (current) experimental evidence for magnetic monopoles
+
+A compass near a wire with no current points north
+
+However, if an electric current runs through the wire, the compass needle deflects somewhat.
+
+Magnetic poles start from the north pole side and terminate in the south pole side
+
+### Magnetic Fields
+
+Moving charge can create a magnetic field. You need motion for magnetic field. BUT not for electric fields.
+
+Magnetic fields are vector fields.
+
+$\vec{B}$ is the symbol for magnetic fields.
+
+1. Magnitude of force is proporitional to magnitude of charge.
+
+    - More charge, more force
+
+2. Magnitude of force is proportional to the force of the magnetic field
+
+    - More field, more force
+
+3. Magnitude of force depends on the particle's velocity
+
+    - Faster charges, more force
+
+4. The magnetic force does not have the same direction as the magnetic field. Instead, it is perpendicular to both the magnetic field and the velocity.
+
+Magnitude of magnetic force on a moving particle is proportional to the component of the particle's velocity perpendicular to the field.
+
+If a particle is at rest, or moving parallel to the field, it experiences zero magnetic force.
+
+$F=|q|v_\perp B = |q|vBsin\theta$
+
+#### Magnetic Force as a Vector Product
+
+The magnetic force is best represented as a vector (cross) product.
+
+$\vec{F} = q\vec{v} \times \vec{B}$
+
+#### Right Hand Rule
+
+Thumb points in dircetion of force if hand curls in direction of velocity
+
+If the charge is negative then you use the "Left Hand Rule" or just use the opposite of the Right Hand Rule
+
+#### Cathode-Ray Tube CRT
+
+The electric beam in a cathode-ray tube, such as that in an older television set, shoots out a narrow beam of electrons.
+
+If there is no force to deflect the beam, it strikes the center of the screen.
+
+#### All Together
+
+What if you have both electric and magnetic field?
+
+It can experience both at the same time.
+
+$\vec{F}=q(\vec{E}+\vec{v}\times\vec{B})$
+
+Warning: Any charge in an electric field will experience some electric force. Only charges moving in a magnetic field that has some component of its velocity perpendicular to the magnetic field will experience some magnetic force.
+
+#### Magnetic Field Lines
+
+We can represent any magnetic field by magnetic field lines.
+
+We draw the lines so that the line through any point is tangent to the magnetic field vector at that point.
+
+Closer together = Stronger.
+
+Field lines never intersect.
+
+Magnetic field lines are NOT lines of magnetic force.
+
+The force on a charged particle is not along the dircetion of a field line.
+
+The direction of the magnetic force depends on the velocity as expressed by the magnetic force law.
+
+#### Magnetic Flux
+
+$\phi_B = \int \vec{B}\cdot d\vec{A}$
+
+Unit for Magnetic field B: Tesla (T)
+
+$1 T = 1 \frac{Newton}{(Coloumb)(Meter/second)}$
+
+$1T = 10^4G$
+
+Unit for Magnetic flux $\phi_B$ is called the weber (1 Wb)
+
+$1 Wb = 1 T \cdot m^2$
+
+Guass's law for magnetism
+
+$\oint \vec{B} \cdot d\vec{A} = 0$
+
+Magnetic Flux density: $B = \frac{d\Phi_B}{dA_\perp}$

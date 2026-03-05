@@ -2,14 +2,31 @@ import type { Editor } from '@milkdown/kit/core';
 import { editorViewCtx, parserCtx } from '@milkdown/kit/core';
 import { Slice } from '@milkdown/kit/prose/model';
 import { Crepe } from '@milkdown/crepe';
-import { useUploader } from './editor-config/uploader';
-import { useListener } from './editor-config/listener';
 import { vscodeDark, vscodeLight } from '@uiw/codemirror-theme-vscode';
-import { ResourceManager } from './utils/resource-manager';
+import { invoke } from "@tauri-apps/api/core";
+import { commonmark } from "@milkdown/preset-commonmark";
 
 export class EditorManager {
     private editor: Editor | null = null;
     private crepe: Crepe | null = null;
+
+    load_file = async (file_path: string) => {
+        try {
+            const file_content: string = await invoke("read_file", {
+                path: file_path,
+            });
+            return file_content;
+        } catch (_) {
+            return "";
+        }
+    };
+
+    save_file = async (file_path: string) => {
+        await invoke("write_file", {
+            path: file_path,
+            content: this.crepe?.getMarkdown() ?? "",
+        });
+    }
 
     create = async (root: HTMLElement) => {
         const crepe = new Crepe({
@@ -19,41 +36,48 @@ export class EditorManager {
                 [Crepe.Feature.CodeMirror]: {
                     theme: document.body.classList.contains('vscode-dark') ? vscodeDark : vscodeLight,
                 },
-                [Crepe.Feature.ImageBlock]: {
-                    proxyDomURL: (originalUrl) => {
-                        if (originalUrl.length === 0) {
-                            return '';
-                        }
-                        const promise = ResourceManager.Instance.add(originalUrl);
-                        return promise;
-                    },
-                    onUpload: async (file) => {
-                        const readImageAsBase64 = (file: File): Promise<{ alt: string; src: string }> => {
-                            return new Promise((resolve) => {
-                                const reader = new FileReader();
-                                reader.addEventListener(
-                                    'load',
-                                    () => {
-                                        resolve({
-                                            alt: file.name,
-                                            src: reader.result?.toString().split(',')[1] as string,
-                                        });
-                                    },
-                                    false,
-                                );
-                                reader.readAsDataURL(file);
-                            });
-                        };
-                        const { src: base64 } = await readImageAsBase64(file);
-                        const url = file.name;
-                        return url;
-                    },
-                },
+                // [Crepe.Feature.ImageBlock]: {
+                //     proxyDomURL: (originalUrl) => {
+                //         if (originalUrl.length === 0) {
+                //             return '';
+                //         }
+                //         const promise = ResourceManager.Instance.add(originalUrl);
+                //         return promise;
+                //     },
+                //     onUpload: async (file) => {
+                //         const readImageAsBase64 = (file: File): Promise<{ alt: string; src: string }> => {
+                //             return new Promise((resolve) => {
+                //                 const reader = new FileReader();
+                //                 reader.addEventListener(
+                //                     'load',
+                //                     () => {
+                //                         resolve({
+                //                             alt: file.name,
+                //                             src: reader.result?.toString().split(',')[1] as string,
+                //                         });
+                //                     },
+                //                     false,
+                //                 );
+                //                 reader.readAsDataURL(file);
+                //             });
+                //         };
+                //         const { src: base64 } = await readImageAsBase64(file);
+                //         const url = file.name;
+                //         return url;
+                //     },
+                // },
             },
         });
-        useListener(crepe);
+        // useListener(crepe);
         const { editor } = crepe;
-        useUploader(editor);
+        // useUploader(editor);
+
+        crepe.editor.use(commonmark);
+        crepe.on(listener => {
+            listener.markdownUpdated((ctx, markdown, prev_markdown) => {
+                console.log(markdown);
+            });
+        })
 
         await crepe.create();
 

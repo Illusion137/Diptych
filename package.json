@@ -40,6 +40,7 @@
 		"katex": "^0.16.8",
 		"mathlive": "^0.108.3",
 		"mathquill": "^0.10.1-a",
+		"normalize.css": "^8.0.1",
 		"prosemirror-state": "^1.4.3",
 		"prosemirror-view": "^1.31.7",
 		"react": "^19.2.0",

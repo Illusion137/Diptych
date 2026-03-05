@@ -1262,6 +1262,91 @@ Potential drops:$\Delta V = -Ir  - IR$
 
 Potential loops$E - Ir - Ir = 0$
 
+### Energy and Power in Electric Circuits
+
+The charge dq that moves between terminals a and b in the time interval dt is equal to $dq = idt$
+
+Since the charge moved through a descrease in potential of magnitude V, the electric potential energy decreases in magnitude by$dU = dqV=tdtV$
+
+Power: $p=V_{ab}I$
+
+Warning: It might be tempting to think that power is energy, but NO!
+
+Power is in Watts
+
+For Ohm's Law: the power delivered by the circuit into the resistor is:
+
+$p = V_{ab}I = I^2R = \frac{V_{ab}^2}{R}$
+
+p = power
+
+$V_{ab}$ = Voltage across resistor
+
+I = current in resistor
+
+What happens in a resistor?
+
+-   Moving charges collide with atoms in the resistor and transfer some of their energy to those atoms, increasing the internal energy, thus increasing the temperature of the resistor.
+-   Thus we can say that the energy in the resistor is "dissapated" in the resistor.
+
+    -   Electrical Energy into thermal energy
+
+### Power
+
+If we know the EMF and internal resistance, we can use the equation.
+
+$V_{ab} = E_{mf} - Ir$
+
+r = internal resistance
+
+Multiply both sides by I (current):
+
+$P = V_{ab}I = E_{mf}I - I^2r$
+
+$E_{mf}I \rightarrow$if a small amount of charge sq passes through the battery of emf in time dt, the battery does work $(W = Edq)$
+
+The rate of the work is $\frac{(Esq)}{dt} = EI$thus EI is the rate at which the EMF devices delivers energy to the rest of the circuit.
+
+$I^2R \rightarrow$Rate at which energy dissipates as thermal energy in the resistor.
+
+$EI-I^2r \rightarrow$Energy that is delivered to the circuit by the EMF devices, but does not appear as thermal energy in the resistor.
+
+With alternate EMF sources we get the equation:
+
+$V_{ab} = E+Ir$
+
+$P = V_{ab}I = EI + I^2r$
+
+$EI \rightarrow$ rate of conversion
+
+$EI + I^2r \rightarrow$ net electrical power input
+
+### Metalic Conduction
+
+No electric field:
+
+The average time between collisions is called the mean free time $\tau$
+
+Each electron has an initial velocity is $v_0$but the average is 0.
+
+$(v_0)a_v = 0$
+
+With electic field:
+
+Force:$F = qE$
+
+Force in the direction of force:$d=\frac{F}{m} = \frac{qE}{m}$
+
+Velocity at a moment:$v = v_0 + d\tau$
+
+$v_{av} = d\tau = \frac{q\tau}{m}E = v_d$
+
+$J = nqv_d = \frac{nq^2\tau}{m} \rightarrow E = \frac{m}{nq^2\tau}J$
+
+$\rho = \frac{m}{ne^2\tau}$
+
+As temperature increases, atoms vibrate more and this $\tau$decreases, thus the resisitivity $\rho$ increases.
+
 ## Key Formulas Summary
 
 ### Electric Force and Field
