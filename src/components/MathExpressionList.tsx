@@ -3,8 +3,10 @@ import { v4 } from "uuid";
 import { useEvaluator } from "../hooks/use_evaluator";
 import MathExpressionEditor, { type MathExpressionEditorHandle } from "./MathExpressionEditor";
 import type { FormulaResult } from "../dimension_wasm_interface";
-import { StaticMathField } from "react-mathquill";
+import { type MathField } from "react-mathquill";
 import { latex_unit_splitter } from "../utils";
+import FormulaList from "./FormulaList";
+import MathKeyboard, { type KeyAction } from "./MathKeyboard";
 
 export interface MathExpressionListHandle {
 	force_evaluate: () => void;
@@ -24,6 +26,7 @@ const MathExpressionList = forwardRef<MathExpressionListHandle, object>((_props,
 	const [focused_index, set_focused_index] = useState(0);
 	const [refresh_eval_trigger, set_refresh_eval_trigger] = useState(0);
 	const editor_refs = useRef<RefObject<MathExpressionEditorHandle>[]>([]);
+	const last_focused_field_ref = useRef<MathField | null>(null);
 
 	const { evaluator } = useEvaluator({
 		default_constants: {
@@ -61,11 +64,9 @@ const MathExpressionList = forwardRef<MathExpressionListHandle, object>((_props,
 					}
 					return { value_expr: exp.latex, unit_expr: exp.unit_latex ?? "" };
 				});
-				// Evaluate all expressions in one batch
 				const eval_results = evaluator.eval_batch(latex_expressions);
 
 				set_related_formulas(evaluator.get_last_formula_results());
-				// Map results back to the original format with IDs
 				return expr_list.map((exp, index) => {
 					const result = eval_results[index];
 					if (result.success) {
@@ -97,7 +98,6 @@ const MathExpressionList = forwardRef<MathExpressionListHandle, object>((_props,
 		[evaluator]
 	);
 
-	// Effect to handle evaluation when expressions change
 	useEffect(() => {
 		const evaluate_all_expressions = async () => {
 			const results = await __evaluate__(
@@ -166,7 +166,7 @@ const MathExpressionList = forwardRef<MathExpressionListHandle, object>((_props,
 			if (index !== -1) {
 				if (!prev_expressions[index].latex.trim()) return prev_expressions;
 				const new_expressions = [...prev_expressions];
-				const new_id = v4(); // Simple ID generation
+				const new_id = v4();
 				new_expressions.splice(index + 1, 0, {
 					id: new_id,
 					latex: "",
@@ -184,7 +184,7 @@ const MathExpressionList = forwardRef<MathExpressionListHandle, object>((_props,
 	const handle_formula_pressed = useCallback((latex: string) => {
 		set_expressions((prev_expressions) => {
 			const new_expressions = [...prev_expressions];
-			const new_id = v4(); // Simple ID generation
+			const new_id = v4();
 			new_expressions.push({
 				id: new_id,
 				latex: latex,
@@ -226,13 +226,10 @@ const MathExpressionList = forwardRef<MathExpressionListHandle, object>((_props,
 				const index = prev_expressions.findIndex((exp) => exp.id === id);
 				if (index !== -1) {
 					if (prev_expressions.length === 1 && prev_expressions[0].id === id) {
-						// If it's the last expression, clear its content instead of deleting it
 						return prev_expressions.map((exp) => (exp.id === id ? { ...exp, latex: "", unit_latex: "" } : exp));
 					} else {
-						// Otherwise, delete the expression
 						const new_expressions = [...prev_expressions];
 						new_expressions.splice(index, 1);
-						// Adjust focus after deletion
 						if (index === focused_index) {
 							set_focused_index(Math.max(0, index - 1));
 						} else if (index < focused_index) {
@@ -246,6 +243,30 @@ const MathExpressionList = forwardRef<MathExpressionListHandle, object>((_props,
 		},
 		[focused_index]
 	);
+
+	const handle_field_focused = useCallback((field: MathField) => {
+		last_focused_field_ref.current = field;
+	}, []);
+
+	const handle_key_press = useCallback((action: KeyAction) => {
+		const field = last_focused_field_ref.current;
+		if (!field) return;
+		switch (action.type) {
+			case "write":
+				field.write(action.latex);
+				break;
+			case "cmd":
+				field.cmd(action.latex);
+				break;
+			case "keystroke":
+				field.keystroke(action.key);
+				break;
+			case "typedText":
+				field.typedText(action.text);
+				break;
+		}
+		field.focus();
+	}, []);
 
 	// Focus the editor when focused_index changes
 	useEffect(() => {
@@ -272,31 +293,11 @@ const MathExpressionList = forwardRef<MathExpressionListHandle, object>((_props,
 					on_arrow_down={() => handle_arrow_down(exp.id)}
 					on_backspace_pressed={() => handle_backspace_pressed(exp.id)}
 					on_click={() => handle_click(exp.id)}
+					on_field_focused={handle_field_focused}
 				/>
 			))}
-			<div className="h-10" />
-			{related_formulas.map((formula) => (
-				<div
-					className="relative flex items-center w-[80%]"
-					style={{ left: formula.category === "---" ? 20 : formula.category === "------" ? 40 : 0 }}
-					key={formula.latex}
-					onClick={() => handle_formula_pressed(formula.latex)}>
-					<div className="cursor-pointer flex-1 flex flex-row items-center transition-all duration-200 py-3 px-4 text-lg border border-purple-500 shadow-purple-300">
-						<p className="absolute top-2 left-2 text-[14px]">{formula.name}</p>
-						<div className="relative w-[30%] cursor-pointer top-3">
-							<StaticMathField>{formula.latex}</StaticMathField>
-						</div>
-						<div className="relative flex flex-col flex-wrap top-2">
-							{formula.variables.map((variable) => (
-								<div key={formula.name + variable.name} className="flex flex-row mr-5 items-center text-[14px]">
-									<StaticMathField>{`\\mathrm{${variable.name}}\\left(${variable.units}\\right)`}</StaticMathField>
-									<p>- {variable.description}</p>
-								</div>
-							))}
-						</div>
-					</div>
-				</div>
-			))}
+			<FormulaList formulas={related_formulas} on_formula_pressed={handle_formula_pressed} />
+			<MathKeyboard on_key_press={handle_key_press} />
 		</div>
 	);
 });

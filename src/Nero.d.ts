@@ -115,6 +115,7 @@ interface EmbindModule {
   dv_eval(_0: EmbindString, _1: EmbindString): Result;
   dv_eval_batch(_0: VectorString, _1: VectorString, _2: VectorString): VectorResult;
   dv_get_available_formulas(_0: VectorInt): VectorFormula;
+  dv_get_available_formulas_filtered(_0: VectorInt): VectorFormula;
   dv_get_last_formula_results(): VectorFormula;
   dv_get_variable(_0: EmbindString): any;
   dv_clear_variables(): void;

@@ -1,8 +1,9 @@
 #root {
-	min-height: 100vh; /* Ensure it takes full viewport height */
+	min-height: 100vh;
 	padding: 2rem;
-	text-align: left; /* Align text to the left for better readability */
+	text-align: left;
 	width: 100%;
+	background: transparent; /* inherits from body */
 }
 
 .logo {
@@ -38,20 +39,20 @@
 }
 
 .read-the-docs {
-	color: #888;
+	color: var(--color-text-muted);
 }
 
 /* Gutter styles */
 .gutter {
-	background-color: #eee;
+	background-color: #352A40;
 	background-repeat: no-repeat;
 	background-position: 50%;
-	cursor: col-resize; /* For horizontal split */
-	transition: background-color 0.2s ease; /* Smooth transition on hover */
+	cursor: col-resize;
+	transition: background-color 0.2s ease;
 }
 
 .gutter:hover {
-	background-color: #ccc; /* Darker background on hover */
+	background-color: #5A5275; /* Nero pupil purple */
 }
 
 .gutter.gutter-horizontal {

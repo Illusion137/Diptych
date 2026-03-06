@@ -20,6 +20,7 @@ interface MathExpressionEditorProps {
 	on_arrow_down: () => void;
 	on_backspace_pressed?: () => void;
 	on_click?: () => void;
+	on_field_focused?: (field: MathField) => void;
 }
 
 const MathExpressionEditor = forwardRef<MathExpressionEditorHandle, MathExpressionEditorProps>(
@@ -37,6 +38,7 @@ const MathExpressionEditor = forwardRef<MathExpressionEditorHandle, MathExpressi
 			on_arrow_down,
 			on_backspace_pressed,
 			on_click,
+			on_field_focused,
 		},
 		ref
 	) => {
@@ -89,14 +91,15 @@ const MathExpressionEditor = forwardRef<MathExpressionEditorHandle, MathExpressi
 				<div
 					ref={container_ref}
 					className={`cursor-pointer flex-1 flex items-center transition-all duration-200 py-3 px-4 text-lg border ${
-						is_focused ? "border-purple-500 shadow-purple-300 shadow-md" : "border-gray-300"
+						is_focused ? "border-[var(--color-primary)]" : "border-[var(--color-border)]"
 					}`}
+					style={{
+						minWidth: "200px",
+						...(is_focused ? { boxShadow: "0 0 8px var(--color-primary)" } : {}),
+					}}
 					onClick={(e) => {
 						focus_nearest_input(e.clientX);
 						on_click?.();
-					}}
-					style={{
-						minWidth: "200px",
 					}}>
 					{/* Expression Editor (takes most width) */}
 					<div className="flex-grow">
@@ -110,8 +113,9 @@ const MathExpressionEditor = forwardRef<MathExpressionEditorHandle, MathExpressi
 								autoSubscriptNumerals: true,
 								sumStartsWithNEquals: true,
 								charsThatBreakOutOfSupSub: "+-=,",
-								autoCommands: "pi pm theta sqrt sum int prod coprod nthroot alpha beta phi lambda sigma delta mu epsilon varepsilon Alpha Beta Phi Lambda Sigma Delta Mu Epsilon",
-								autoOperatorNames: "ln sin cos tan sec csc cot log abs nCr nPr ceil fact floor round arcsin arccos arctan arcsec arccsc arccot val unit",
+								autoCommands: "pi pm theta sqrt sum int hat prod coprod nthroot alpha beta phi lambda sigma delta mu epsilon varepsilon Alpha Beta Phi Lambda Sigma Delta Mu Epsilon",
+								autoOperatorNames:
+									"ln sin cos tan sec csc cot log abs nCr nPr ceil fact floor round arcsin arccos arctan arcsec arccsc arccot val unit min max gcd lcm sig det conj Re Im trace FahrC FahrK CelK CelF rad deg",
 								handlers: {
 									moveOutOf(direction) {
 										if (direction === 1) unit_math_field_ref.current?.focus();
@@ -137,15 +141,17 @@ const MathExpressionEditor = forwardRef<MathExpressionEditorHandle, MathExpressi
 								on_latex_change(new_expression_latex);
 							}}
 							latex={math_latex}
-							onFocus={() => {}} // Focus managed by is_focused prop
-							onBlur={() => {}} // Blur managed by is_focused prop
+							onFocus={() => {
+								if (on_field_focused && math_field_ref.current) on_field_focused(math_field_ref.current);
+							}}
+							onBlur={() => {}}
 						/>
 					</div>
 
 					{/* Evaluation Result / Error */}
-					<div className="ml-4 text-gray-700 flex items-center flex-shrink-0">
+					<div className="ml-4 text-[var(--color-text-muted)] flex items-center flex-shrink-0">
 						{evaluation_error && math_latex.trim() ? (
-							<div className="flex items-center gap-2 text-red-600 text-sm">
+							<div className="flex items-center gap-2 text-[var(--color-error)] text-sm">
 								<svg className="w-4 h-4 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
 									<path
 										fillRule="evenodd"
@@ -159,7 +165,7 @@ const MathExpressionEditor = forwardRef<MathExpressionEditorHandle, MathExpressi
 							</div>
 						) : math_latex.trim() ? (
 							<span className="flex items-center gap-2">
-								<span className="text-sm text-gray-700">=</span>
+								<span className="text-sm text-[var(--color-text-muted)]">=</span>
 								<StaticMathField>{evaluation_result_latex_string}</StaticMathField>
 							</span>
 						) : null}
@@ -181,7 +187,7 @@ const MathExpressionEditor = forwardRef<MathExpressionEditorHandle, MathExpressi
 											if (direction === -1) math_field_ref.current?.focus();
 										},
 										deleteOutOf() {
-											on_backspace_pressed_ref.current?.();
+											math_field_ref.current?.focus();
 										},
 										enter() {
 											on_enter_pressed_ref.current?.();
@@ -199,6 +205,9 @@ const MathExpressionEditor = forwardRef<MathExpressionEditorHandle, MathExpressi
 									const new_unit_latex = mathField?.latex() ?? "";
 									set_unit_latex(new_unit_latex);
 									on_unit_latex_change(latex_unit_splitter(new_unit_latex));
+								}}
+								onFocus={() => {
+									if (on_field_focused && unit_math_field_ref.current) on_field_focused(unit_math_field_ref.current);
 								}}
 							/>
 						</div>

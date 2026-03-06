@@ -102,7 +102,7 @@ $\mathrm{N_A} = 6.022 \cdot 10^{23} \cdot \mathrm{mol^{-1}}$
 
 ### Functions
 
-`sqrt ceil fact floor round sin cos tan sec csc cot arcsin arccos arctan arcsec arccsc arccot abs nCr nPr log ln sum int min max gcd lcm sig det prod conj val unit Re Im trace`
+`sqrt ceil fact floor round sin cos tan sec csc cot arcsin arccos arctan arcsec arccsc arccot abs nCr nPr log ln sum int min max gcd lcm sig det prod conj val unit Re Im trace FahrC FahrK CelK CelF rad deg`
 
 ## Footnotes
 
