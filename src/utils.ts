@@ -35,7 +35,7 @@ export function latex_unit_splitter(latex: string): string {
 
     // Derived units
     const derived_units = [
-        "Hz", "N", "Pa", "J", "W", "C", "V", "F", "Ohm", "Wb", "T", "H", "S"
+        "Hz", "N", "Pa", "J", "W", "C", "V", "F", "Ohm", "\\Omega", "Wb", "T", "H", "S", "L"
     ];
 
     // SI prefixes - both regular and LaTeX versions
@@ -70,13 +70,24 @@ export function latex_unit_splitter(latex: string): string {
         });
     });
 
+    all_units.add("nmi");
+    all_units.add("AU");
+    all_units.add("ly");
+    all_units.add("pc");
+    all_units.add("cal");
+    all_units.add("kcal");
+    all_units.add("PSI");
     all_units.add("in");
     all_units.add("ft");
     all_units.add("yd");
     all_units.add("mi");
+    all_units.add("oz");
     all_units.add("lb");
     all_units.add("min");
     all_units.add("hour");
+    all_units.add("day");
+    all_units.add("month");
+    all_units.add("year");
     all_units.add("ATM");
 
     // Sort by length (descending) to match longer units first

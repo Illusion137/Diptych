@@ -1603,3 +1603,33 @@ Guass's law for magnetism
 $\oint \vec{B} \cdot d\vec{A} = 0$
 
 Magnetic Flux density: $B = \frac{d\Phi_B}{dA_\perp}$
+
+### Magnetic field particle motion
+
+From Newtons 2nd Law
+
+$F = |q|vB = m\frac{v^2}{R}$
+
+$R = \frac{mv}{|q|B}$
+
+The period T for one full revolution: $T = \frac{2\pi r}{v} = \frac{2\pi m}{|q|B}$
+
+The frequency: $f = \frac{|q|B}{2\pi m}$
+
+The angular frequency: $w=\frac{|q|B}{m}$
+
+#### Helical Motion
+
+$v_\perp = v\times sin(\phi)$
+
+#### Thomson's E/M Experiment
+
+Particles deflected by the equation:$y=\frac{|q|EL^2}{2mv^2}$
+
+#### Mass Spectrometer
+
+The radius of the particle's path:
+
+$R = \frac{m}{q}\frac{v}{B'} \rightarrow \frac{m}{q} = \frac{v}{RB'}$
+
+Depending on the mass/charge ratio, you can determine the particle's identity.
