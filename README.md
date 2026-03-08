@@ -1,10 +1,46 @@
 # Everett
 
+<div style="text-align: center;" align="center">
+    <img src="public/everett.webp" height="300px" alt="Monic Everett + Nero">
+</div>
+
+### [Artwork by K_0313_heaseong on X](https://x.com/K_0313_heaseong/status/1981284372834897999)
+
+<hr>
+
 Everett is a Math Expression List Evaluator. Inspired by taking my Physics II course at NAU.\
 This application was built with React, TypeScript, TailwindCSS, Tauri and WASM.
-In terms of Web Assembly, this application uses another library I built called [Nero](https://github.com/Illusion137/Nero), a C++ LaTex parser, evaluator and formula finder.
+In terms of Web Assembly, this application uses another library I built called [Nero](https://github.com/Illusion137/Nero), a C++ LaTeX parser, evaluator and formula finder.
 
 ## Installation
+
+### Prebuilt Release (Recommended)
+
+```bash
+git clone https://github.com/Illusion137/Everett.git
+cd Everett
+wget -P public/wasm http://github.com/Illusion137/Nero/releases/latest/download/Nero.wasm
+yarn install
+```
+
+### Build Nero from Source
+
+`NOTE: Building from source should only be done for quickly iterating through changes if you are directly developing Nero.`
+
+```bash
+git clone https://github.com/Illusion137/Nero.git # Nero for building the WASM library from source
+git clone https://github.com/Illusion137/Everett.git
+cd Nero
+sed -E -i '.bak' 's/(EVERETT_PATH)=.*/\1="PATH_TO_EVERETT"/g' build.sh # replace PATH_TO_EVERETT with your Everett path with escaped slashes
+npm i
+sh build.sh
+cd ../Everett
+yarn install
+```
+
+## Usage
+
+## Running / Building
 
 ### Run Development Server (Web)
 
@@ -24,7 +60,7 @@ yarn tauri dev
 yarn tauri build
 ```
 
-## Usage
+## Application Usage
 
 Each Math Expression Box is divided into 2 sections.\
 $\bigg| \mathrm{Math Expression} \bigg| \mathrm{Unit Expression} \bigg|$
@@ -81,28 +117,82 @@ $\rightarrow \mathrm{error}$: Undefined variable 'm'
 
 $?=\mathrm{Unit}$ `Formula query; finds all formulas to obtain a target from units in the expression list`\
 $\mathrm{Var}:=$ `Solve-for; solves the expression for the given variable`\
-$@=\mathrm{Var}_1,\mathrm{Var}_2,\ldots$ `Solve system; solves a system of equations for the listed variables`\
+@$=\mathrm{Var}_1,\mathrm{Var}_2,\ldots$ `Solve system; solves a system of equations for the listed variables`\
 $\pm$ `Plus-minus; evaluates an expression as both its positive and negative form`
 
 ### Constants
 
-$\mathrm{e} = 2.718281828459 \cdot \mathrm{1}$\
-$\mathrm{e_c} = 1.602 \cdot 10^{-19} \cdot \mathrm{C}$\
-$\mathrm{e_0} = 8.854187817 \cdot 10^{-12} \cdot \mathrm{\frac{F}{m}}$\
-$\mathrm{k_e} = 8.99 \cdot 10^9 \cdot \mathrm{\frac{Nm^2}{C^2}}$\
-$\mathrm{c} = 2.99792458 \cdot 10^8 \cdot \mathrm{\frac{m}{s}}$\
-$\mathrm{m_e} = 9.1938 \cdot 10^{-31} \cdot \mathrm{kg}$\
-$\mathrm{m_p} = 1.67262 \cdot 10^{-27} \cdot \mathrm{kg}$\
-$\mathrm{m_n} = 1.674927 \cdot 10^{-27} \cdot \mathrm{kg}$\
-$\mathrm{R_g} = 8.31446 \cdot \mathrm{JK^{-1}mol^{-1}}$\
-$\mathrm{C_K} = 273.15 \cdot \mathrm{K}$\
-$\mathrm{h} = 6.620607015 \cdot 10^{-34} \cdot \mathrm{Js}$\
-$\mathrm{a_0} = 5.291772 \cdot 10^{-11} \cdot \mathrm{m}$\
-$\mathrm{N_A} = 6.022 \cdot 10^{23} \cdot \mathrm{mol^{-1}}$
+| Constant                                                               | Name                     |
+| ---------------------------------------------------------------------- | ------------------------ |
+| $\mathrm{e} = 2.718281828459 \cdot \mathrm{1}$                         | Euler's Constant         |
+| $\mathrm{e_c} = 1.602 \cdot 10^{-19} \cdot \mathrm{C}$                 | Elementary Charge        |
+| $\mathrm{e_0} = 8.854187817 \cdot 10^{-12} \cdot \mathrm{\frac{F}{m}}$ | Electric Constant        |
+| $\mathrm{k_e} = 8.99 \cdot 10^9 \cdot \mathrm{\frac{Nm^2}{C^2}}$       | Coulomb constant         |
+| $\mathrm{c} = 2.99792458 \cdot 10^8 \cdot \mathrm{\frac{m}{s}}$        | Speed of light in vacuum |
+| $\mathrm{m_e} = 9.1938 \cdot 10^{-31} \cdot \mathrm{kg}$               | Electron mass            |
+| $\mathrm{m_p} = 1.67262 \cdot 10^{-27} \cdot \mathrm{kg}$              | Proton mass              |
+| $\mathrm{m_n} = 1.674927 \cdot 10^{-27} \cdot \mathrm{kg}$             | Neutron mass             |
+| $\mathrm{R_g} = 8.31446 \cdot \mathrm{JK^{-1}mol^{-1}}$                | Ideal gas constant       |
+| $\mathrm{C_K} = 273.15 \cdot \mathrm{K}$                               | Celsius–Kelvin offset    |
+| $\mathrm{h} = 6.620607015 \cdot 10^{-34} \cdot \mathrm{Js}$            | Planck constant          |
+| $\mathrm{a_0} = 5.291772 \cdot 10^{-11} \cdot \mathrm{m}$              | Bohr radius              |
+| $\mathrm{N_A} = 6.022 \cdot 10^{23} \cdot \mathrm{mol^{-1}}$           | Avogadro constant        |
 
 ### Functions
 
-`sqrt ceil fact floor round sin cos tan sec csc cot arcsin arccos arctan arcsec arccsc arccot abs nCr nPr log ln sum int min max gcd lcm sig det prod conj val unit Re Im trace FahrC FahrK CelK CelF rad deg`
+#### Basic Math
+
+`sqrt` `ceil` `floor` `round` `abs`
+
+#### Trigonometric
+
+`sin` `cos` `tan`  
+`sec` `csc` `cot`
+
+#### Inverse Trigonometric
+
+`arcsin` `arccos` `arctan`  
+`arcsec` `arccsc` `arccot`
+
+#### Logarithmic
+
+`log` `ln`
+
+#### Combinatorics
+
+`nCr` `nPr`
+
+#### Aggregates
+
+`sum` `prod` `min` `max`
+
+#### Number Theory
+
+`gcd` `lcm`
+
+#### Linear Algebra
+
+`det` `trace`
+
+#### Complex Numbers
+
+`conj` `Re` `Im`
+
+#### Utility
+
+`fact` `sig` `val` `unit`
+
+#### Integration
+
+`int`
+
+#### Temperature Conversion
+
+`FahrC` `FahrK` `CelK` `CelF`
+
+#### Angle Conversion
+
+`rad` `deg`
 
 ## Footnotes
 
