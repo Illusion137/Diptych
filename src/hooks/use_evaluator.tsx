@@ -1,6 +1,7 @@
 // src/hooks/use_evaluator.ts
 import { useEffect, useState } from "react";
-import { DimensionalEvaluator, type WasmModule } from "../dimension_wasm_interface";
+import { DimensionalEvaluator } from "../dimension_wasm_interface";
+import type { MainModule } from "../Nero";
 
 interface UseEvaluatorOptions {
 	default_constants?: Record<string, [string, string]>;
@@ -15,7 +16,7 @@ interface UseEvaluatorReturn {
 
 declare global {
 	interface Window {
-		Module?: () => Promise<WasmModule>;
+		Module?: () => Promise<MainModule>;
 	}
 }
 
@@ -84,7 +85,7 @@ export function useEvaluator(options: UseEvaluatorOptions = {}): UseEvaluatorRet
 				if (!mounted) return;
 
 				// Initialize module
-				const wasm_module: WasmModule = typeof window.Module === "function" ? await rcast<{ Module: () => Promise<WasmModule> }>(window).Module() : await window.Module;
+				const wasm_module: MainModule = typeof window.Module === "function" ? await rcast<{ Module: () => Promise<MainModule> }>(window).Module() : await window.Module;
 
 				if (!mounted) return;
 

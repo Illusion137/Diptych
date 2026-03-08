@@ -8,6 +8,11 @@
 
 <hr>
 
+<div style="display: flex; gap: 5px;">
+    <img src="public/basic_demo.gif" width="50%" alt="Basic Demo">
+    <img src="public/formula_query.gif" width="50%" alt="Formula Querying">
+</div>
+
 Everett is a Math Expression List Evaluator. Inspired by taking my Physics II course at NAU.\
 This application was built with React, TypeScript, TailwindCSS, Tauri and WASM.
 In terms of Web Assembly, this application uses another library I built called [Nero](https://github.com/Illusion137/Nero), a C++ LaTeX parser, evaluator and formula finder.
@@ -117,13 +122,14 @@ $\rightarrow \mathrm{error}$: Undefined variable 'm'
 
 $?=\mathrm{Unit}$ `Formula query; finds all formulas to obtain a target from units in the expression list`\
 $\mathrm{Var}:=$ `Solve-for; solves the expression for the given variable`\
-@$=\mathrm{Var}_1,\mathrm{Var}_2,\ldots$ `Solve system; solves a system of equations for the listed variables`\
+@ $=\mathrm{Var}_1,\mathrm{Var}_2,\ldots$ `Solve system; solves a system of equations for the listed variables`\
 $\pm$ `Plus-minus; evaluates an expression as both its positive and negative form`
 
 ### Constants
 
 | Constant                                                               | Name                     |
 | ---------------------------------------------------------------------- | ------------------------ |
+| $\pi = 3.14159265358979323846 \cdot \mathrm{1}$                        | Pi                       |
 | $\mathrm{e} = 2.718281828459 \cdot \mathrm{1}$                         | Euler's Constant         |
 | $\mathrm{e_c} = 1.602 \cdot 10^{-19} \cdot \mathrm{C}$                 | Elementary Charge        |
 | $\mathrm{e_0} = 8.854187817 \cdot 10^{-12} \cdot \mathrm{\frac{F}{m}}$ | Electric Constant        |
