@@ -15,11 +15,11 @@ function App() {
 		<div className="relative flex w-full h-[calc(100vh-4rem)]">
 			{is_tauri && (
 				<button
-					onClick={() => set_is_swapped(s => !s)}
+					onClick={() => set_is_swapped((s) => !s)}
 					style={{
 						position: "absolute",
-						top: "0.5rem",
-						right: "0.5rem",
+						top: "-2rem",
+						right: "-0.5rem",
 						zIndex: 50,
 						padding: "0.25rem 0.5rem",
 						fontSize: "1rem",
@@ -30,8 +30,7 @@ function App() {
 						cursor: "pointer",
 						lineHeight: 1,
 					}}
-					title="Swap panes"
-				>
+					title="Swap panes">
 					↔
 				</button>
 			)}

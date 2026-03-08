@@ -30,7 +30,6 @@ export class EditorManager {
     create = async (root: HTMLElement, on_change?: (markdown: string) => void) => {
         // Clear any residual DOM from a previous mount (e.g. React StrictMode double-invoke)
         root.innerHTML = '';
-
         const crepe = new Crepe({
             root,
             defaultValue: '',
@@ -41,6 +40,7 @@ export class EditorManager {
             },
         });
         const { editor } = crepe;
+        console.log(editor);
 
         crepe.on(listener => {
             listener.markdownUpdated((_ctx, markdown) => {
@@ -48,7 +48,12 @@ export class EditorManager {
             });
         });
 
-        await crepe.create();
+        try {
+            await crepe.create();
+        }
+        catch (e) {
+            console.warn(e);
+        }
 
         this.crepe = crepe;
         this.editor = editor;
@@ -65,7 +70,10 @@ export class EditorManager {
     };
 
     update = (markdown: string): void => {
-        if (!this.editor || typeof markdown !== 'string') return;
-        this.editor.action(replaceAll(markdown, true));
+        if (typeof markdown !== 'string') {
+            console.warn("Non-Markdown recieved", markdown);
+            return;
+        }
+        this.editor?.action(replaceAll(markdown, true));
     };
 }

@@ -38,7 +38,7 @@ export default defineConfig({
 			: undefined,
 		watch: {
 			// 3. tell vite to ignore watching `src-tauri`
-			ignored: ["**/src-tauri/**", "**/NOTES.md"],
+			ignored: ["**/src-tauri/**", "**/NOTES.md", "**/NOTES-temp.md"],
 		},
 	},
 })

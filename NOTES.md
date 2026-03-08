@@ -28,6 +28,7 @@ $e = 1.602 \times 10^{-19} \text{ C}$
 **Variables:**
 
 -   $e$ = elementary charge (charge of a single proton or magnitude of electron charge)
+
 -   Unit: Coulomb (C)
 
 **Note**: Quarks carry fractional charges ($\pm \frac{1}{3}e$ or $\pm \frac{2}{3}e$), but isolated quarks are never observed in nature.
@@ -41,6 +42,7 @@ $m_{\text{electron}} = 9.109 \times 10^{-31} \text{ kg}$
 **Example**: When a plastic rod is rubbed with fur:
 
 -   Rod becomes negatively charged → gains electrons → **gains mass**
+
 -   Fur becomes positively charged → loses electrons → **loses mass**
 
 **When to use**: Understanding that charge transfer involves actual particle transfer, not just abstract charge movement.
@@ -54,21 +56,25 @@ $m_{\text{electron}} = 9.109 \times 10^{-31} \text{ kg}$
 **Conductor**: Material that allows electric charge (current) to flow easily.
 
 -   Free electrons can move throughout the material
+
 -   Examples: metals (copper, aluminum, gold)
 
 **Insulator**: Material that does NOT allow charge to flow easily.
 
 -   Electrons are tightly bound to atoms
+
 -   Examples: rubber, glass, plastic
 
 **Semiconductor**: Intermediate conductivity between conductors and insulators.
 
 -   Conductivity can be controlled
+
 -   Examples: silicon, germanium
 
 **Superconductor**: Material with zero electrical resistance below a critical temperature.
 
 -   Charge flows with absolutely no energy loss
+
 -   Examples: certain ceramics at very low temperatures
 
 ---
@@ -106,7 +112,9 @@ A charged object touches a neutral object, sharing charge directly.
 **Application**: Electrostatic painting
 
 -   Paint particles are negatively charged
+
 -   Car body is positively charged
+
 -   Paint attracted to car, creating even coating
 
 **Why neutral paper is attracted to charged plastic**: The electric force decreases with distance. The near side of the paper (opposite charge induced) experiences a stronger force than the far side (same charge induced), resulting in net attraction.
@@ -124,15 +132,21 @@ $F = k\frac{|q_1 q_2|}{r^2} = \frac{1}{4\pi\varepsilon_0}\frac{|q_1 q_2|}{r^2}$
 **Variables:**
 
 -   $F$ = magnitude of electric force (N)
+
 -   $q_1, q_2$ = charges of the two particles (C)
+
 -   $r$ = distance between the charges (m)
+
 -   $k$ = Coulomb's constant = $8.99 \times 10^9 \, \text{N·m}^2/\text{C}^2$
+
 -   $\varepsilon_0$ = permittivity of free space = $8.854 \times 10^{-12} \, \text{C}^2/(\text{N·m}^2)$
 
 **When to use**:
 
 -   Finding the force between two point charges (or spherical charge distributions)
+
 -   Charges must be at rest (electrostatics)
+
 -   Valid for charges in a vacuum or air
 
 **Vector Form**:
@@ -144,6 +158,7 @@ Where $\hat{r}_{12}$ is the unit vector pointing from $q_1$ to $q_2$.
 **Direction**:
 
 -   Same sign charges → repulsive (force points away)
+
 -   Opposite sign charges → attractive (force points toward)
 
 ### Superposition Principle
@@ -167,12 +182,15 @@ $\vec{E} = \frac{\vec{F}}{q_0}$
 **Variables:**
 
 -   $\vec{E}$ = electric field vector (N/C or V/m)
+
 -   $\vec{F}$ = force on test charge (N)
+
 -   $q_0$ = small positive test charge (C)
 
 **When to use**:
 
 -   Describing the influence of charges on space
+
 -   Finding the force a charge would experience: $\vec{F} = q\vec{E}$
 
 **Key Concept**: Electric fields exist throughout all space, whether or not a test charge is present.
@@ -184,12 +202,15 @@ $\vec{E} = k\frac{q}{r^2}\hat{r}$
 **Variables:**
 
 -   $q$ = source charge creating the field (C)
+
 -   $r$ = distance from source charge to field point (m)
+
 -   $\hat{r}$ = unit vector pointing radially outward from source
 
 **Direction**:
 
 -   Positive source charge: field points radially **outward**
+
 -   Negative source charge: field points radially **inward** (toward the charge)
 
 **When to use**: Finding the field at any point due to a single point charge.
@@ -211,7 +232,9 @@ $\vec{p} = q\vec{d}$
 **Variables:**
 
 -   $\vec{p}$ = electric dipole moment (C·m)
+
 -   $q$ = magnitude of each charge (C)
+
 -   $\vec{d}$ = vector from negative to positive charge (m)
 
 **Electric field on the dipole axis** (far field, $r \gg d$):
@@ -249,11 +272,13 @@ $\tau = pE\sin\theta$
 **Variables:**
 
 -   $\tau$ = torque (N·m)
+
 -   $\theta$ = angle between dipole moment and field
 
 **When to use**:
 
 -   Torque → dipole alignment in fields (molecules, antennas)
+
 -   Force → dipole motion in non-uniform fields
 
 ### Continuous Charge Distributions
@@ -305,13 +330,17 @@ $\Phi_E = \int \vec{E} \cdot d\vec{A} = \int E \cos\theta \, dA$
 **Variables:**
 
 -   $\Phi_E$ = electric flux (N·m²/C or V·m)
+
 -   $\vec{E}$ = electric field (N/C)
+
 -   $d\vec{A}$ = infinitesimal area vector (perpendicular to surface) (m²)
+
 -   $\theta$ = angle between $\vec{E}$ and $d\vec{A}$
 
 **Sign Convention**:
 
 -   Positive flux: field points outward through surface
+
 -   Negative flux: field points inward through surface
 
 **When to use**: Quantifying how much field penetrates a surface.
@@ -325,18 +354,23 @@ $\oint \vec{E} \cdot d\vec{A} = \frac{Q_{\text{enc}}}{\varepsilon_0}$
 **Variables:**
 
 -   $\oint$ = integral over closed surface
+
 -   $Q_{\text{enc}}$ = total charge enclosed by the surface (C)
 
 **Key Insight**: Flux depends ONLY on enclosed charge, not on:
 
 -   Size or shape of Gaussian surface
+
 -   Position of charges inside surface
+
 -   Charges outside the surface
 
 **When to use**:
 
 -   Systems with high symmetry (spherical, cylindrical, planar)
+
 -   Finding electric field when symmetry allows $\vec{E}$ to be constant on surface
+
 -   Proving properties of conductors
 
 ### Applications of Gauss's Law
@@ -354,6 +388,7 @@ $E = \frac{\lambda}{2\pi\varepsilon_0 r}$
 **Variables:**
 
 -   $\lambda$ = charge per unit length (C/m)
+
 -   $r$ = perpendicular distance from line (m)
 
 **When to use**: Long straight charged wires, $r \ll$ length.
@@ -421,12 +456,15 @@ Where $\hat{n}$ is the outward normal.
 **Empty cavity**:
 
 -   No charge on cavity surface
+
 -   $E = 0$ inside cavity
 
 **Charge** **$+q$** **in cavity**:
 
 -   Charge $-q$ induced on cavity surface
+
 -   Charge $+q$ appears on outer surface
+
 -   Field in conductor still zero
 
 **Faraday's Ice Pail Experiment**: Demonstrates charge induction in conducting containers.
@@ -438,7 +476,9 @@ Where $\hat{n}$ is the outward normal.
 **Applications**:
 
 -   Protecting electronics from interference
+
 -   Safety during lightning storms
+
 -   Sensitive measurement equipment
 
 **When to use**: Any time you need to isolate a region from electric fields.
@@ -456,8 +496,11 @@ $U = q_0 E y$
 **Variables:**
 
 -   $U$ = electric potential energy (J)
+
 -   $q_0$ = charge (C)
+
 -   $E$ = magnitude of electric field (N/C)
+
 -   $y$ = height above reference point (m)
 
 **Reference**: Usually set $U = 0$ at one plate.
@@ -473,6 +516,7 @@ $W_{\text{ext}} = \Delta U = U_f - U_i$
 **Sign Convention**:
 
 -   Positive charge moves with field → $W_{\text{field}}$ positive, $U$ decreases
+
 -   Positive charge moves against field → $W_{\text{field}}$ negative, $U$ increases
 
 **When to use**: Charged particles between parallel plates, uniform field regions.
@@ -486,7 +530,9 @@ $U = k\frac{qq_0}{r}$
 **Variables:**
 
 -   $U$ = potential energy (J)
+
 -   $q, q_0$ = the two charges (C) \[signs matter!]
+
 -   $r$ = separation distance (m)
 
 **Reference**: $U = 0$ at $r = \infty$
@@ -494,6 +540,7 @@ $U = k\frac{qq_0}{r}$
 **Sign Convention**:
 
 -   Same sign charges (repulsive): $U > 0$ (positive energy)
+
 -   Opposite sign charges (attractive): $U < 0$ (negative energy)
 
 **When to use**: Two isolated charges, finding energy to bring charges together.
@@ -541,7 +588,9 @@ $V = \frac{U}{q_0}$
 **Variables:**
 
 -   $V$ = electric potential (V = J/C)
+
 -   $U$ = potential energy (J)
+
 -   $q_0$ = test charge (C)
 
 **SI Unit**: Volt (V)
@@ -553,7 +602,9 @@ $1 \text{ V} = 1 \text{ J/C}$
 **When to use**:
 
 -   Describing the "voltage" at a point
+
 -   Finding energy of charges without vectors
+
 -   Circuit analysis
 
 ### Potential from Point Charge
@@ -563,7 +614,9 @@ $V = k\frac{q}{r} = \frac{1}{4\pi\varepsilon_0}\frac{q}{r}$
 **Variables:**
 
 -   $V$ = potential at distance $r$ from charge (V)
+
 -   $q$ = source charge (C) \[sign matters!]
+
 -   $r$ = distance from charge (m)
 
 **Reference**: $V = 0$ at $r = \infty$
@@ -571,6 +624,7 @@ $V = k\frac{q}{r} = \frac{1}{4\pi\varepsilon_0}\frac{q}{r}$
 **Sign**:
 
 -   Positive charge: $V > 0$
+
 -   Negative charge: $V < 0$
 
 **When to use**: Finding potential near a point charge.
@@ -596,7 +650,9 @@ $V_{ab} = V_a - V_b = -\int_b^a \vec{E} \cdot d\vec{l}$
 **Variables:**
 
 -   $V_{ab}$ = potential of point $a$ relative to point $b$ (V)
+
 -   $\vec{E}$ = electric field (N/C)
+
 -   $d\vec{l}$ = infinitesimal displacement along path (m)
 
 **Alternative forms**:
@@ -616,12 +672,15 @@ $1 \text{ eV} = 1.602 \times 10^{-19} \text{ J}$
 **When to use**:
 
 -   Atomic and nuclear physics
+
 -   Particle energies
+
 -   Convenient unit for small energies
 
 **Conversion**:
 
 -   To find energy: $E = qV$ where $q$ is charge in coulombs
+
 -   For an electron through $V$ volts: $E = eV$ (in joules) or simply $V$ (in eV)
 
 ### Uniform Field (Parallel Plates)
@@ -635,6 +694,7 @@ $V(y) = Ey$
 **Variables:**
 
 -   $d$ = plate separation (m)
+
 -   $y$ = distance from negative plate (m)
 
 **Reference**: Often set $V = 0$ at negative plate ($y = 0$).
@@ -642,7 +702,9 @@ $V(y) = Ey$
 **When to use**:
 
 -   Parallel plate capacitors
+
 -   Cathode ray tubes
+
 -   Particle accelerators
 
 ### Potential of Charged Sphere
@@ -681,7 +743,9 @@ $V_{\text{surface}} = E_{\text{surface}} \cdot R$
 **When to use**:
 
 -   Visualizing potential distributions
+
 -   Understanding field directions
+
 -   Conductor surfaces (always equipotential)
 
 ### Conductors at Equilibrium
@@ -710,12 +774,15 @@ $E_r = -\frac{dV}{dr}$
 **Interpretation**:
 
 -   Negative sign: field points from high to low potential
+
 -   Gradient: direction of steepest increase in $V$
+
 -   $\vec{E}$: direction of steepest decrease in $V$
 
 **When to use**:
 
 -   When potential is known and you need the field
+
 -   Easier than integrating to find $\vec{E}$ directly in some cases
 
 ### Relationship Summary
@@ -737,7 +804,9 @@ $E_r = -\frac{dV}{dr}$
 **Configuration**:
 
 -   One plate has charge $+Q$
+
 -   Other plate has charge $-Q$
+
 -   Potential difference $V$ between plates
 
 **Capacitance**:
@@ -747,7 +816,9 @@ $C = \frac{Q}{V}$
 **Variables:**
 
 -   $C$ = capacitance (F)
+
 -   $Q$ = magnitude of charge on each plate (C)
+
 -   $V$ = potential difference between plates (V)
 
 **SI Unit**: Farad (F)
@@ -761,8 +832,11 @@ $1 \text{ F} = 1 \text{ C/V}$
 **When to use**:
 
 -   Energy storage in circuits
+
 -   Filtering in electronics
+
 -   Timing circuits
+
 -   Power supply smoothing
 
 ### Parallel Plate Capacitor
@@ -774,7 +848,9 @@ $C = \frac{\varepsilon_0 A}{d}$
 **Variables:**
 
 -   $A$ = area of one plate (m²)
+
 -   $d$ = separation between plates (m)
+
 -   $\varepsilon_0$ = permittivity of free space
 
 **Derivation Summary**:
@@ -794,7 +870,9 @@ $C = \frac{2\pi\varepsilon_0 L}{\ln(b/a)}$
 **Variables:**
 
 -   $L$ = length of cylinders (m)
+
 -   $a$ = inner radius (m)
+
 -   $b$ = outer radius (m)
 
 **When to use**: Coaxial cables, cylindrical capacitor designs.
@@ -816,6 +894,7 @@ $C = 4\pi\varepsilon_0 r_a$
 **Properties**:
 
 -   **Same charge** on all capacitors: $Q_1 = Q_2 = Q_3 = Q$
+
 -   **Different voltages**: $V_{\text{total}} = V_1 + V_2 + V_3 + \cdots$
 
 **Equivalent capacitance**:
@@ -831,7 +910,9 @@ $C_{\text{eq}} = \frac{C_1 C_2}{C_1 + C_2}$
 **When to use**:
 
 -   Capacitors connected end-to-end (one path)
+
 -   Increasing voltage rating
+
 -   Series connection reduces total capacitance
 
 ### Capacitors in Parallel
@@ -839,6 +920,7 @@ $C_{\text{eq}} = \frac{C_1 C_2}{C_1 + C_2}$
 **Properties**:
 
 -   **Same voltage** across all capacitors: $V_1 = V_2 = V_3 = V$
+
 -   **Different charges**: $Q_{\text{total}} = Q_1 + Q_2 + Q_3 + \cdots$
 
 **Equivalent capacitance**:
@@ -848,8 +930,11 @@ $C_{\text{eq}} = C_1 + C_2 + C_3 + \cdots$
 **When to use**:
 
 -   Capacitors connected across same two points
+
 -   Increasing total capacitance
+
 -   Energy storage applications
+
 -   Parallel connection adds capacitances
 
 ### Energy Stored in a Capacitor
@@ -861,8 +946,11 @@ $U = \frac{1}{2}QV = \frac{1}{2}CV^2 = \frac{Q^2}{2C}$
 **Variables:**
 
 -   $U$ = stored energy (J)
+
 -   $Q$ = charge (C)
+
 -   $V$ = voltage (V)
+
 -   $C$ = capacitance (F)
 
 **Derivation**: Work required to charge capacitor:
@@ -872,14 +960,19 @@ $W = \int_0^Q V \, dq = \int_0^Q \frac{q}{C} \, dq = \frac{Q^2}{2C}$
 **When to use**:
 
 -   Energy storage calculations
+
 -   Power delivery applications
+
 -   Camera flashes
+
 -   Defibrillators
 
 **Which formula to use?**
 
 -   Use $U = \frac{1}{2}CV^2$ if you know $C$ and $V$
+
 -   Use $U = \frac{Q^2}{2C}$ if you know $Q$ and $C$
+
 -   Use $U = \frac{1}{2}QV$ if you know $Q$ and $V$
 
 ### Energy Density
@@ -891,6 +984,7 @@ $u = \frac{U}{\text{Volume}} = \frac{1}{2}\varepsilon_0 E^2$
 **Variables:**
 
 -   $u$ = energy density (J/m³)
+
 -   $E$ = electric field magnitude (V/m)
 
 **For parallel plate capacitor**:
@@ -900,7 +994,9 @@ $u = \frac{CV^2}{2Ad} = \frac{1}{2}\varepsilon_0\left(\frac{V}{d}\right)^2 = \fr
 **When to use**:
 
 -   Energy in any electric field
+
 -   Comparing energy storage in different configurations
+
 -   Electromagnetic wave energy
 
 ---
@@ -914,9 +1010,13 @@ $u = \frac{CV^2}{2Ad} = \frac{1}{2}\varepsilon_0\left(\frac{V}{d}\right)^2 = \fr
 **Examples**:
 
 -   Air (K ≈ 1.0006)
+
 -   Paper (K ≈ 3.7)
+
 -   Glass (K ≈ 5-10)
+
 -   Water (K ≈ 80)
+
 -   Teflon (K ≈ 2.1)
 
 ### Dielectric Constant
@@ -928,7 +1028,9 @@ $K = \frac{C_{\text{with dielectric}}}{C_{\text{vacuum}}}$
 **Properties**:
 
 -   $K \geq 1$ (equals 1 for vacuum)
+
 -   No units (pure ratio)
+
 -   Material property
 
 ### Effects of Dielectrics
@@ -950,7 +1052,9 @@ $E = \frac{E_0}{K}$
 **Variables:**
 
 -   $E$ = field with dielectric (V/m)
+
 -   $E_0$ = field in vacuum (V/m)
+
 -   $K$ = dielectric constant
 
 **When to use**: Finding field strength when dielectric is present.
@@ -966,7 +1070,9 @@ $V = \frac{V_0}{K}$
 If battery remains connected:
 
 -   Voltage stays constant
+
 -   Charge increases: $Q = KQ_0$
+
 -   Energy increases: $U = KU_0$
 
 ### Why Use Dielectrics?
@@ -983,13 +1089,17 @@ If battery remains connected:
 **When field exceeds dielectric strength**:
 
 -   Material ionizes
+
 -   Conducts current
+
 -   Permanent damage may occur
 
 **Typical values**:
 
 -   Air: \~3 × 10⁶ V/m
+
 -   Teflon: \~60 × 10⁶ V/m
+
 -   Glass: \~14 × 10⁶ V/m
 
 **When to use**: Designing capacitors to avoid failure at high voltages.
@@ -1003,16 +1113,21 @@ If battery remains connected:
 1. **Polar molecules** (permanent dipoles):
 
     - Align with external field
+
     - Example: water
 
 2. **Nonpolar molecules**:
+
     - Induced dipole moment
+
     - Electron cloud shifts relative to nucleus
 
 **Result**:
 
 -   Induced surface charge on dielectric surfaces
+
 -   Creates internal field opposing external field
+
 -   Net field reduced by factor $K$
 
 ### Surface Charge Density
@@ -1084,6 +1199,7 @@ If steady flow of constant electric field then steady force of \[Random Directio
 $\vec{F}=q\vec{E}$
 
 -   Drift speed\~ $10^{-5} - 10^{-4} \frac{m}{s}$
+
 -   Random motion\~ $10^6 \frac{m}{s}$
 
 ### Direction of Current Flow
@@ -1091,6 +1207,7 @@ $\vec{F}=q\vec{E}$
 A current can be produced by positive or negative charge flow
 
 -   Ionized Plasma (E to the right)(Same direction)
+
 -   Electrons in Materials (E to the left)(Opposite direction)
 
 Conventional current is treated as a **flow of positive charges**
@@ -1146,6 +1263,7 @@ $\vec{J} = (ne)\vec{v_d}$
 Carrier charge density:$ne = \frac{C}{m^3}$
 
 -   $I$ is the same throughout entire wire
+
 -   $J$ may not be
 
 In general a conductor may contain serveral different kinds of moving charged particles.
@@ -1154,13 +1272,13 @@ $I_{total} = \sum I$
 
 ### Resistivity
 
-&#x20;The current density depends on the electric field **inside** the material and the properities of the material.
+The current density depends on the electric field **inside** the material and the properities of the material.
 
 -   Recall dielectric constant
 
 The **Resistivity** of a material (ideal) is the ratio of electric field in the material to the current density it causes:
 
-$p = \frac{E}{J} = \frac{\frac{V}{m}}{\frac{A}{m^2}} = \frac{V\cdot m}{A}$&#x20;
+$p = \frac{E}{J} = \frac{\frac{V}{m}}{\frac{A}{m^2}} = \frac{V\cdot m}{A}$
 
 $1\frac{V}{A} = 1 \Omega m$
 
@@ -1287,6 +1405,7 @@ I = current in resistor
 What happens in a resistor?
 
 -   Moving charges collide with atoms in the resistor and transfer some of their energy to those atoms, increasing the internal energy, thus increasing the temperature of the resistor.
+
 -   Thus we can say that the energy in the resistor is "dissapated" in the resistor.
 
     -   Electrical Energy into thermal energy
@@ -1380,16 +1499,23 @@ $V_c = \frac{q}{C}$, $V_R=IR$
 Junction Rule - A junction is a point where threee or more conductos meet
 
 -   Valid at any junction:$\sum I = 0$
+
 -   Charge can not be created or destroyed.
+
 -   What comes in must come out.
 
 Loop Rule - A loop being a closed subcircuit
 
 -   $\sum V = 0$
+
 -   Electostatic force is conserved
+
 -   As you walk through your loop, has my potential increased or decreased.
+
 -   Depending on direction you can lose or gain potential when travelling through components
+
 -   What is the direction of the EMF?
+
 -   How are we going though resistors, and what direction is the current entering the resistor.
 
 Negative power means we are storing energy

@@ -1,25 +1,26 @@
-import { EditorManager } from './editor-manager';
-import { ResourceManager } from './utils/resource-manager';
+// import { EditorManager } from './editor-manager';
+// import { ResourceManager } from './utils/resource-manager';
 
-function main() {
-    const editor = new EditorManager();
+// function main() {
+//     const editor = new EditorManager();
 
-    // editor.create();
+//     // editor.create();
 
-    window.addEventListener('message', (event) => {
-        const message = event.data;
-        switch (message.type) {
-            case 'update': {
-                const text = message.text;
-                editor.update(text);
-                return;
-            }
-            case 'resource-response': {
-                ResourceManager.Instance.resolve(message.origin, message.result);
-                return;
-            }
-        }
-    });
-}
+//     window.addEventListener('message', (event) => {
+//         const message = event.data;
+//         switch (message.type) {
+//             case 'update': {
+//                 const text = message.text;
+//                 console.log(text);
+//                 editor.update(text);
+//                 return;
+//             }
+//             case 'resource-response': {
+//                 ResourceManager.Instance.resolve(message.origin, message.result);
+//                 return;
+//             }
+//         }
+//     });
+// }
 
-main();
+// // main();
