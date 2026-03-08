@@ -8,9 +8,9 @@
 
 <hr>
 
-<div style="display: flex; gap: 5px;">
-    <img src="public/basic_demo.gif" width="50%" alt="Basic Demo">
-    <img src="public/formula_query.gif" width="50%" alt="Formula Querying">
+<div style="display: flex; gap: 5px;" float="left">
+    <img src="public/basic_demo.gif" width="49%" alt="Basic Demo">
+    <img src="public/formula_query.gif" width="49%" alt="Formula Querying">
 </div>
 
 Everett is a Math Expression List Evaluator. Inspired by taking my Physics II course at NAU.\
