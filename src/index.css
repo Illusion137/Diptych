@@ -26,6 +26,7 @@
 	--color-accent-purple:    #5A5275;
 	--color-text:             #E8D5C4;
 	--color-text-muted:       #9A7A8A;
+	--color-variable:         #D5C4E8;
 	--color-error:            #D45A6A;
 	--color-success:          #7AAA88;
 }
@@ -106,11 +107,10 @@ button:focus-visible {
 	border-color: transparent !important;
 }
 
-/* Static math fields inherit text color */
-.mq-math-mode span,
-.mq-math-mode var {
-	color: var(--color-text) !important;
-}
+/* MathQuill syntax highlighting */
+.mq-math-mode span { color: var(--color-text) !important; }
+.mq-math-mode .mq-operator-name { color: var(--color-accent) !important; }
+.mq-math-mode var:not(.mq-operator-name) { color: var(--color-variable) !important; }
 
 /* Hide cursor in static math fields */
 .mq-math-mode:not(.mq-editable-field) .mq-cursor {
