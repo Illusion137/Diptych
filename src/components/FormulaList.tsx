@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { StaticMathField } from "react-mathquill";
-import type { FormulaResult } from "../dimension_wasm_interface";
+import type { FormulaResult } from "../nero_wasm_interface";
 
 interface FormulaListProps {
 	formulas: FormulaResult[];
