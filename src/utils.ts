@@ -35,7 +35,7 @@ export function latex_unit_splitter(latex: string): string {
 
     // Derived units
     const derived_units = [
-        "Hz", "N", "Pa", "J", "W", "C", "V", "F", "Ohm", "\\Omega", "Wb", "T", "H", "S", "L"
+        "Hz", "N", "Pa", "J", "W", "C", "V", "F", "Ohm", "\\Omega", "Wb", "T", "H", "S", "L", "eV"
     ];
 
     // SI prefixes - both regular and LaTeX versions

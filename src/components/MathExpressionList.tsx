@@ -2,7 +2,7 @@ import { forwardRef, useCallback, useEffect, useImperativeHandle, useRef, useSta
 import { v4 } from "uuid";
 import { useEvaluator } from "../hooks/use_evaluator";
 import MathExpressionEditor, { type MathExpressionEditorHandle } from "./MathExpressionEditor";
-import type { FormulaResult } from "../dimension_wasm_interface";
+import type { FormulaResult } from "../nero_wasm_interface";
 import { type MathField } from "react-mathquill";
 import { latex_unit_splitter } from "../utils";
 import FormulaList from "./FormulaList";
@@ -29,15 +29,7 @@ const MathExpressionList = forwardRef<MathExpressionListHandle, object>((_props,
 	const last_focused_field_ref = useRef<MathField | null>(null);
 
 	const { evaluator } = useEvaluator({
-		default_constants: {
-			e_c: ["1.602*10^{-19}", "\\C"],
-			e_0: ["8.854187817*10^{-12}", "\\frac{\\F}{\\m}"],
-			k: ["8.99*10^9", "\\frac{\\N\\m^2}{\\C^2}"],
-			c: ["2.99792458*10^8", "\\frac{\\m}{\\s}"],
-			m_e: ["9.1938*10^{-31}", "\\kg"],
-			m_p: ["1.67262*10^{-27}", "\\kg"],
-			N_A: ["6.022*10^{23}", "\\mol^{-1}"],
-		},
+		default_constants: {},
 	});
 
 	useImperativeHandle(ref, () => ({

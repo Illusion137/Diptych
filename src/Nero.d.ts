@@ -105,25 +105,25 @@ interface EmbindModule {
   VectorFormulaVariable: {
     new(): VectorFormulaVariable;
   };
-  dv_init(): boolean;
-  dv_destroy(): void;
-  dv_is_initialized(): boolean;
-  dv_set_constant(_0: EmbindString, _1: EmbindString, _2: EmbindString): boolean;
-  dv_remove_constant(_0: EmbindString): boolean;
-  dv_clear_constants(): void;
-  dv_get_constant_count(): number;
-  dv_eval(_0: EmbindString, _1: EmbindString): Result;
-  dv_eval_batch(_0: VectorString, _1: VectorString, _2: VectorString): VectorResult;
-  dv_get_available_formulas(_0: VectorInt): VectorFormula;
-  dv_get_available_formulas_filtered(_0: VectorInt): VectorFormula;
-  dv_get_last_formula_results(): VectorFormula;
-  dv_get_variable(_0: EmbindString): any;
-  dv_clear_variables(): void;
-  dv_get_variable_count(): number;
-  dv_unit_latex_to_unit(_0: EmbindString): VectorInt;
-  dv_unit_to_latex(_0: VectorInt): string;
-  dv_value_to_scientific(_0: number, _1: number): string;
-  dv_version(): string;
+  nero_init(): boolean;
+  nero_destroy(): void;
+  nero_is_initialized(): boolean;
+  nero_set_constant(_0: EmbindString, _1: EmbindString, _2: EmbindString): boolean;
+  nero_remove_constant(_0: EmbindString): boolean;
+  nero_clear_constants(): void;
+  nero_get_constant_count(): number;
+  nero_eval(_0: EmbindString, _1: EmbindString): Result;
+  nero_eval_batch(_0: VectorString, _1: VectorString, _2: VectorString): VectorResult;
+  nero_get_available_formulas(_0: VectorInt): VectorFormula;
+  nero_get_available_formulas_filtered(_0: VectorInt): VectorFormula;
+  nero_get_last_formula_results(): VectorFormula;
+  nero_get_variable(_0: EmbindString): any;
+  nero_clear_variables(): void;
+  nero_get_variable_count(): number;
+  nero_unit_latex_to_unit(_0: EmbindString): VectorInt;
+  nero_unit_to_latex(_0: VectorInt): string;
+  nero_value_to_scientific(_0: number, _1: number): string;
+  nero_version(): string;
 }
 
 export type MainModule = WasmModule & EmbindModule;

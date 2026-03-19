@@ -1759,3 +1759,57 @@ The radius of the particle's path:
 $R = \frac{m}{q}\frac{v}{B'} \rightarrow \frac{m}{q} = \frac{v}{RB'}$
 
 Depending on the mass/charge ratio, you can determine the particle's identity.
+
+### Force and Torque on a Current Loop
+
+In total, the net force on the loop is 0.
+
+However, there will still be torque on the loop, causing it to rotate in the magnetic field.
+
+$F = IaB (+x-direction)$,
+
+Front and back:
+
+$F'=IbBsin(90-\phi)=IbBcos(\phi)$
+
+If the loop could rotate about the y-axis, the torque is:
+
+$\tau=r\times F$
+
+Thus both torques are in the +y-direction. Net torque is:
+
+$\tau'=(IaB\frac{b}{2}sin(\phi))+(IaB\frac{b}{2}sin(\phi))$
+
+$=(IBa)(bsin(\phi))$
+
+a is length.
+
+b is width.
+
+b is magnetic field.
+
+Magnetic Dipole Moment: $\mu = IA$
+
+Right hand rule for direction of Magnetic Dipole Moment
+
+Torque: $\tau = \mu \times B$
+
+Work: $dW = (\tau d \phi)$
+
+Energy: $U = -\mu \cdot B = -\mu B cos\phi$
+
+For a solenoid, helical winding of wire on a circular cylinder, if the magnetic moment is $\mu = NIA$
+
+then $\tau = NIABsin\phi$
+
+#### DC-Motor
+
+#### Hall effect sensor
+
+Only sense certain materials passing through magnetic field.
+
+Hall effect: $nq = \frac{-J_xB_y}{E_z}$
+
+$V = v_dBd$
+
+-d is the width perpendicular to both the drift velocity $v_d$ and the field $\vec{B}$

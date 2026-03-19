@@ -1,6 +1,6 @@
 // src/hooks/use_evaluator.ts
 import { useEffect, useState } from "react";
-import { DimensionalEvaluator } from "../dimension_wasm_interface";
+import { DimensionalEvaluator } from "../nero_wasm_interface";
 import type { MainModule } from "../Nero";
 
 interface UseEvaluatorOptions {
