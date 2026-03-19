@@ -33,10 +33,10 @@ jobs:
         shell: bash
         run: |
           mkdir -p public/wasm
-          gh release download --repo Illusion137/Nero --pattern "Nero.js" --output public/wasm/Nero.js
-          gh release download --repo Illusion137/Nero --pattern "Nero.wasm" --output public/wasm/Nero.wasm
-          gh release download --repo Illusion137/Nero --pattern "Nero.d.ts" --output src/Nero.d.ts
-          gh release download --repo Illusion137/Nero --pattern "nero_wasm_interface.ts" --output src/nero_wasm_interface.ts
+          gh release download --repo Illusion137/Nero --pattern "Nero.js" --output public/wasm/Nero.js --clobber
+          gh release download --repo Illusion137/Nero --pattern "Nero.wasm" --output public/wasm/Nero.wasm --clobber
+          gh release download --repo Illusion137/Nero --pattern "Nero.d.ts" --output src/Nero.d.ts --clobber
+          gh release download --repo Illusion137/Nero --pattern "nero_wasm_interface.ts" --output src/nero_wasm_interface.ts --clobber
 
       - name: Set up Node.js
         uses: actions/setup-node@v4
@@ -122,10 +122,10 @@ jobs:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           mkdir -p public/wasm
-          gh release download --repo Illusion137/Nero --pattern "Nero.js" --output public/wasm/Nero.js
-          gh release download --repo Illusion137/Nero --pattern "Nero.wasm" --output public/wasm/Nero.wasm
-          gh release download --repo Illusion137/Nero --pattern "Nero.d.ts" --output src/Nero.d.ts
-          gh release download --repo Illusion137/Nero --pattern "nero_wasm_interface.ts" --output src/nero_wasm_interface.ts
+          gh release download --repo Illusion137/Nero --pattern "Nero.js" --output public/wasm/Nero.js --clobber
+          gh release download --repo Illusion137/Nero --pattern "Nero.wasm" --output public/wasm/Nero.wasm --clobber
+          gh release download --repo Illusion137/Nero --pattern "Nero.d.ts" --output src/Nero.d.ts --clobber
+          gh release download --repo Illusion137/Nero --pattern "nero_wasm_interface.ts" --output src/nero_wasm_interface.ts --clobber
 
       - name: Set up Node.js
         uses: actions/setup-node@v4
