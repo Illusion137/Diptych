@@ -1,4 +1,4 @@
-# Everett
+# Everett ([Demo](https://sumii.me/everett.html))
 
 <div style="text-align: center;" align="center">
     <img src="public/everett.webp" height="300px" alt="Monic Everett + Nero">
