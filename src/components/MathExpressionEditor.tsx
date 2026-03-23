@@ -113,9 +113,10 @@ const MathExpressionEditor = forwardRef<MathExpressionEditorHandle, MathExpressi
 								autoSubscriptNumerals: true,
 								sumStartsWithNEquals: true,
 								charsThatBreakOutOfSupSub: "+-=,",
-								autoCommands: "pi pm theta sqrt sum int hat prod coprod nthroot alpha beta phi lambda sigma delta mu epsilon varepsilon Alpha Beta Phi Lambda Sigma Delta Mu Epsilon",
+								autoCommands:
+									"pi pm theta sqrt sum int hat prod coprod nthroot alpha beta phi lambda sigma delta mu tau epsilon varepsilon Alpha Beta Phi Lambda Sigma Delta Mu Epsilon Tau Re Im",
 								autoOperatorNames:
-									"ln sin cos tan sec csc cot log abs nCr nPr ceil fact floor round arcsin arccos arctan arcsec arccsc arccot val unit min max gcd lcm sig det conj Re Im trace FahrC FahrK CelK CelF rad deg",
+									"ln sin cos tan sec csc cot log abs nCr nPr ceil fact floor round arcsin arccos arctan arcsec arccsc arccot val unit min max gcd lcm sig det conj trace FahrC FahrK CelK CelF rad deg",
 								handlers: {
 									moveOutOf(direction) {
 										if (direction === 1) unit_math_field_ref.current?.focus();

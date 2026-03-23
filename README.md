@@ -140,9 +140,13 @@ $\pm$ `Plus-minus; evaluates an expression as both its positive and negative for
 | $\mathrm{m_n} = 1.674927 \cdot 10^{-27} \cdot \mathrm{kg}$             | Neutron mass             |
 | $\mathrm{R_g} = 8.31446 \cdot \mathrm{JK^{-1}mol^{-1}}$                | Ideal gas constant       |
 | $\mathrm{C_K} = 273.15 \cdot \mathrm{K}$                               | Celsius–Kelvin offset    |
-| $\mathrm{h} = 6.620607015 \cdot 10^{-34} \cdot \mathrm{Js}$            | Planck constant          |
+| $\mathrm{h} = 6.62607015 \cdot 10^{-34} \cdot \mathrm{Js}$             | Planck constant          |
 | $\mathrm{a_0} = 5.291772 \cdot 10^{-11} \cdot \mathrm{m}$              | Bohr radius              |
 | $\mathrm{N_A} = 6.022 \cdot 10^{23} \cdot \mathrm{mol^{-1}}$           | Avogadro constant        |
+| $\epsilon_0 = 8.8541878128 \cdot 10^{-12} \cdot \mathrm{F\,m^{-1}}$    | vacuum permittivity      |
+| $\mu_0 = 1.25663706212 \cdot 10^{-6} \cdot \mathrm{H\,m^{-1}}$         | vacuum permeability      |
+| $R_a = 0.082057 \cdot \mathrm{L\,atm\,K^{-1}\,mol^{-1}}$               | ideal gas constant (atm) |
+| $\alpha = 7.2973525693 \cdot 10^{-3}$                                  | fine-structure constant  |
 
 ### Functions
 

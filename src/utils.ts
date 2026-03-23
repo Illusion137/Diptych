@@ -89,18 +89,14 @@ export function latex_unit_splitter(latex: string): string {
     all_units.add("month");
     all_units.add("year");
     all_units.add("ATM");
+    all_units.add("pH");
 
-    // Sort by length (descending) to match longer units first
     const sorted_units = Array.from(all_units).sort((a, b) => b.length - a.length);
 
-    // Create regex pattern that matches units not already preceded by backslash
-    // The negative lookbehind checks for backslash not followed by 'mu'
-    // or a regular backslash
     const pattern = new RegExp(
         `(?<!\\\\)(?<!\\\\mu )(${sorted_units.map(u => u.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')).join('|')})`,
         'g'
     );
 
-    // Replace matched units with backslash + unit
     return latex.replace(pattern, '\\$1');
 }
