@@ -83,7 +83,8 @@ export type Formula = {
   name: EmbindString,
   latex: EmbindString,
   category: EmbindString,
-  variables: VectorFormulaVariable
+  variables: VectorFormulaVariable,
+  score: number
 };
 
 interface EmbindModule {

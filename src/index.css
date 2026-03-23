@@ -112,7 +112,42 @@ button:focus-visible {
 .mq-math-mode .mq-operator-name { color: var(--color-accent) !important; }
 .mq-math-mode var:not(.mq-operator-name) { color: var(--color-variable) !important; }
 
+/* Unit field: non-italic variables */
+.mathquill-unit-field var { font-style: normal !important; }
+
 /* Hide cursor in static math fields */
 .mq-math-mode:not(.mq-editable-field) .mq-cursor {
 	display: none !important;
+}
+
+/* Desmos-style "ans" chip: shows previous answer value with "ans" label below */
+.mq-math-mode .mq-operator-name[data-ans-hide] {
+	font-size: 0 !important;
+	width: 0 !important;
+	overflow: hidden !important;
+	display: inline-block !important;
+	padding: 0 !important;
+}
+.mq-math-mode .mq-operator-name[data-ans] {
+	border: 1px solid var(--color-border);
+	border-radius: 3px;
+	padding: 0 4px;
+	font-size: 0 !important;
+	display: inline-block !important;
+	vertical-align: middle;
+	line-height: 1;
+	text-align: center;
+	min-width: 1.5em;
+}
+.mq-math-mode .mq-operator-name[data-ans]::before {
+	content: attr(data-ans);
+	font-size: 14px;
+	color: var(--color-text) !important;
+	display: block;
+}
+.mq-math-mode .mq-operator-name[data-ans]::after {
+	content: "ans";
+	font-size: 8px;
+	color: var(--color-text-muted) !important;
+	display: block;
 }

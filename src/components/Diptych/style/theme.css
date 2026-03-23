@@ -29,8 +29,18 @@
         outline: none;
     }
 
+    .milkdown-toolbar .toolbar-item svg {
+        color: var(--crepe-color-on-background) !important;
+        fill: var(--crepe-color-on-background) !important;
+    }
+
+    .milkdown-toolbar .divider {
+        background: color-mix(in srgb, var(--crepe-color-on-background), transparent 60%) !important;
+    }
+
     .ProseMirror {
         padding: 60px 120px;
+        caret-color: transparent;
 
         *::selection {
             background: var(--crepe-color-selected);

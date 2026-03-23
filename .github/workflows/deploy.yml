@@ -126,6 +126,13 @@ jobs:
                   gh release download --repo Illusion137/Nero --pattern "Nero.wasm" --output public/wasm/Nero.wasm --clobber
                   gh release download --repo Illusion137/Nero --pattern "Nero.d.ts" --output src/Nero.d.ts --clobber
                   gh release download --repo Illusion137/Nero --pattern "nero_wasm_interface.ts" --output src/nero_wasm_interface.ts --clobber
+                  gh release download --repo Illusion137/Nero --pattern "README.md" --output nero_README.md --clobber || \
+                    curl -sf https://raw.githubusercontent.com/Illusion137/Nero/main/README.md -o nero_README.md
+
+            - name: Sync README sections from Nero
+              run: |
+                  python3 scripts/sync_readme_sections.py nero_README.md README.md \
+                    --sections CONSTANTS FUNCTIONS
 
             - name: Set up Node.js
               uses: actions/setup-node@v4

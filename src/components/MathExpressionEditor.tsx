@@ -1,6 +1,6 @@
 import { forwardRef, useEffect, useImperativeHandle, useRef, useState } from "react";
 import { EditableMathField, StaticMathField, type MathField } from "react-mathquill";
-import { latex_unit_splitter } from "../utils";
+import { AUTO_COMMANDS, AUTO_OPERATOR_NAMES, latex_unit_splitter } from "../nero_wasm_interface";
 
 export interface MathExpressionEditorHandle {
 	focus: () => void;
@@ -13,6 +13,7 @@ interface MathExpressionEditorProps {
 	is_focused: boolean;
 	evaluation_error?: string | null;
 	evaluation_result_latex_string?: string;
+	ans_display?: string;
 	on_latex_change: (latex: string) => void;
 	on_unit_latex_change: (unit_latex: string) => void;
 	on_enter_pressed: () => void;
@@ -31,6 +32,7 @@ const MathExpressionEditor = forwardRef<MathExpressionEditorHandle, MathExpressi
 			is_focused,
 			evaluation_error,
 			evaluation_result_latex_string = "",
+			ans_display,
 			on_latex_change,
 			on_unit_latex_change,
 			on_enter_pressed,
@@ -113,10 +115,8 @@ const MathExpressionEditor = forwardRef<MathExpressionEditorHandle, MathExpressi
 								autoSubscriptNumerals: true,
 								sumStartsWithNEquals: true,
 								charsThatBreakOutOfSupSub: "+-=,",
-								autoCommands:
-									"pi pm theta sqrt sum int hat prod coprod nthroot alpha beta phi lambda sigma delta mu tau epsilon varepsilon Alpha Beta Phi Lambda Sigma Delta Mu Epsilon Tau Re Im",
-								autoOperatorNames:
-									"ln sin cos tan sec csc cot log abs nCr nPr ceil fact floor round arcsin arccos arctan arcsec arccsc arccot val unit min max gcd lcm sig det conj trace FahrC FahrK CelK CelF rad deg",
+								autoCommands: AUTO_COMMANDS,
+								autoOperatorNames: AUTO_OPERATOR_NAMES,
 								handlers: {
 									moveOutOf(direction) {
 										if (direction === 1) unit_math_field_ref.current?.focus();
@@ -182,7 +182,7 @@ const MathExpressionEditor = forwardRef<MathExpressionEditorHandle, MathExpressi
 								}}
 								config={{
 									spaceBehavesLikeTab: true,
-									autoCommands: "mu",
+									autoCommands: "mu Omega",
 									handlers: {
 										moveOutOf(direction) {
 											if (direction === -1) math_field_ref.current?.focus();

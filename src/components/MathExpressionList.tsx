@@ -2,9 +2,8 @@ import { forwardRef, useCallback, useEffect, useImperativeHandle, useRef, useSta
 import { v4 } from "uuid";
 import { useEvaluator } from "../hooks/use_evaluator";
 import MathExpressionEditor, { type MathExpressionEditorHandle } from "./MathExpressionEditor";
-import type { FormulaResult } from "../nero_wasm_interface";
+import { latex_unit_splitter, type FormulaResult } from "../nero_wasm_interface";
 import { type MathField } from "react-mathquill";
-import { latex_unit_splitter } from "../utils";
 import FormulaList from "./FormulaList";
 import MathKeyboard, { type KeyAction } from "./MathKeyboard";
 
@@ -18,10 +17,13 @@ interface Expression {
 	unit_latex: string;
 	evaluation_error: string | null;
 	evaluation_result_latex_string: string;
+	evaluation_result_value: string;
 }
 
 const MathExpressionList = forwardRef<MathExpressionListHandle, object>((_props, ref) => {
-	const [expressions, set_expressions] = useState<Expression[]>(() => [{ id: v4(), latex: "", unit_latex: "", evaluation_error: null, evaluation_result_latex_string: "" }]);
+	const [expressions, set_expressions] = useState<Expression[]>(() => [
+		{ id: v4(), latex: "", unit_latex: "", evaluation_error: null, evaluation_result_latex_string: "", evaluation_result_value: "" },
+	]);
 	const [related_formulas, set_related_formulas] = useState<FormulaResult[]>(() => []);
 	const [focused_index, set_focused_index] = useState(0);
 	const [refresh_eval_trigger, set_refresh_eval_trigger] = useState(0);
@@ -46,6 +48,7 @@ const MathExpressionList = forwardRef<MathExpressionListHandle, object>((_props,
 					unit_latex: exp.unit_latex ?? "",
 					evaluation_error: "Evaluator not initialized",
 					evaluation_result_latex_string: "",
+					evaluation_result_value: "",
 				}));
 			}
 
@@ -56,6 +59,7 @@ const MathExpressionList = forwardRef<MathExpressionListHandle, object>((_props,
 					}
 					return { value_expr: exp.latex, unit_expr: exp.unit_latex ?? "" };
 				});
+				// console.log(latex_expressions);
 				const eval_results = evaluator.eval_batch(latex_expressions);
 
 				set_related_formulas(evaluator.get_last_formula_results());
@@ -67,6 +71,7 @@ const MathExpressionList = forwardRef<MathExpressionListHandle, object>((_props,
 							evaluation_error: null,
 							unit_latex: exp.unit_latex ?? "",
 							evaluation_result_latex_string: `${result.value_scientific ?? ""}${result.unit_latex}`,
+							evaluation_result_value: result.value_scientific ?? "",
 						};
 					} else {
 						return {
@@ -74,6 +79,7 @@ const MathExpressionList = forwardRef<MathExpressionListHandle, object>((_props,
 							evaluation_error: result.error ?? null,
 							unit_latex: exp.unit_latex ?? "",
 							evaluation_result_latex_string: "",
+							evaluation_result_value: "",
 						};
 					}
 				});
@@ -83,6 +89,7 @@ const MathExpressionList = forwardRef<MathExpressionListHandle, object>((_props,
 					...exp,
 					unit_latex: exp.unit_latex ?? "",
 					evaluation_result_latex_string: "",
+					evaluation_result_value: "",
 					evaluation_error: error instanceof Error ? error.message : "Unknown error",
 				}));
 			}
@@ -165,6 +172,7 @@ const MathExpressionList = forwardRef<MathExpressionListHandle, object>((_props,
 					unit_latex: "",
 					evaluation_error: null,
 					evaluation_result_latex_string: "",
+					evaluation_result_value: "",
 				});
 				set_focused_index(index + 1);
 				return new_expressions;
@@ -183,6 +191,7 @@ const MathExpressionList = forwardRef<MathExpressionListHandle, object>((_props,
 				unit_latex: "",
 				evaluation_error: null,
 				evaluation_result_latex_string: "",
+				evaluation_result_value: "",
 			});
 			set_focused_index(focused_index + 1);
 			return new_expressions;
@@ -278,6 +287,7 @@ const MathExpressionList = forwardRef<MathExpressionListHandle, object>((_props,
 					is_focused={focused_index === index}
 					evaluation_result_latex_string={exp.evaluation_result_latex_string}
 					evaluation_error={exp.evaluation_error}
+					ans_display={index > 0 ? expressions[index - 1].evaluation_result_value : undefined}
 					on_latex_change={(new_latex) => handle_latex_change(exp.id, new_latex)}
 					on_unit_latex_change={(new_unit_latex) => handle_unit_latex_change(exp.id, new_unit_latex)}
 					on_enter_pressed={() => handle_enter_pressed(exp.id)}
