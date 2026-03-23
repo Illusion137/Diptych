@@ -32,7 +32,7 @@ const MathExpressionEditor = forwardRef<MathExpressionEditorHandle, MathExpressi
 			is_focused,
 			evaluation_error,
 			evaluation_result_latex_string = "",
-			ans_display,
+			// ans_display,
 			on_latex_change,
 			on_unit_latex_change,
 			on_enter_pressed,
