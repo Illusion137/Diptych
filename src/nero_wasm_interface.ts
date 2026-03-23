@@ -273,10 +273,8 @@ export class DimensionalEvaluator {
         }
     }
 }
-// AUTO_GENERATED_START
 export const AUTO_COMMANDS = "pi pm mp theta sqrt sum int hat prod coprod nthroot alpha beta phi lambda sigma delta mu tau epsilon varepsilon Alpha Beta Phi Lambda Sigma Delta Mu Epsilon Tau Re Im nleqslant ngeqslant leqslant";
-export const AUTO_OPERATOR_NAMES = "ln sin cos tan sec csc cot log abs nCr nPr ceil fact floor round arcsin arccos arctan arcsec arccsc arccot val unit min max gcd lcm sig det conj trace FahrC FahrK CelK CelF rad deg sinh cosh tanh sech csch coth arcsinh arccosh arctanh mean std var median clamp lerp norm dot cross ans";
-// AUTO_GENERATED_END
+export const AUTO_OPERATOR_NAMES = "arcsinh arccosh arctanh arcsin arccos arctan median floor round clamp cross sqrt ceil fact prod sinh cosh tanh sech csch coth lerp norm mean conj sin cos tan sec csc cot abs nCr nPr log sum int min max gcd lcm sig det std var dot deg ln Re Im arcsec arccsc arccot trace FahrC FahrK unit CelK CelF val rad tr";
 
 export function array_empty(unit: number[]): boolean {
     if (unit.length == 0) return true;
@@ -287,11 +285,9 @@ export function array_empty(unit: number[]): boolean {
 }
 export function latex_unit_splitter(latex: string): string {
     // UNIT_SPLITTER_GENERATED_START
-    const base_units = ["m", "s", "g", "A", "K", "mol", "cd"];
-
-    const derived_units = [
-        "Hz", "N", "Pa", "J", "W", "C", "V", "F", "Ohm", "\\Omega", "Wb", "T", "H", "S", "L", "eV"
-    ];
+    const base_units = ["m", "g", "s", "A", "K", "mol", "cd"];
+    const derived_units = ["N", "J", "Pa", "C", "Hz", "S", "Ohm", "\\Omega", "F", "V", "W", "Wb", "T", "H", "L", "eV"];
+    const singleton_units = ["nmi", "AU", "ly", "pc", "cal", "kcal", "PSI", "in", "ft", "yd", "mi", "oz", "lb", "min", "hour", "day", "month", "year", "ATM", "gauss"];
     // UNIT_SPLITTER_GENERATED_END
 
     const prefixes = [
@@ -321,25 +317,7 @@ export function latex_unit_splitter(latex: string): string {
         });
     });
 
-    all_units.add("nmi");
-    all_units.add("AU");
-    all_units.add("ly");
-    all_units.add("pc");
-    all_units.add("cal");
-    all_units.add("kcal");
-    all_units.add("PSI");
-    all_units.add("in");
-    all_units.add("ft");
-    all_units.add("yd");
-    all_units.add("mi");
-    all_units.add("oz");
-    all_units.add("lb");
-    all_units.add("min");
-    all_units.add("hour");
-    all_units.add("day");
-    all_units.add("month");
-    all_units.add("year");
-    all_units.add("ATM");
+    singleton_units.forEach(unit => all_units.add(unit));
     all_units.add("pH");
 
     // Sort by length (descending) to match longer units first
@@ -354,6 +332,6 @@ export function latex_unit_splitter(latex: string): string {
     );
 
     // Replace matched units with backslash + unit
-    const new_unit = latex.replace(pattern, '\\$1').replaceAll('\\\\Omega', '\\Omega');
+    const new_unit = latex.replace(pattern, '\\$1').replaceAll('\\\\', '\\');
     return new_unit;
 }
