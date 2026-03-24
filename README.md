@@ -128,26 +128,26 @@ $\pm$ `Plus-minus; evaluates an expression as both its positive and negative for
 ### Constants
 
 <!-- CONSTANTS_START -->
-| Constant                                                               | Name                     |
-| ---------------------------------------------------------------------- | ------------------------ |
-| $\pi = 3.14159265358979323846 \cdot \mathrm{1}$                        | Pi                       |
-| $\mathrm{e} = 2.718281828459 \cdot \mathrm{1}$                         | Euler's Constant         |
-| $\mathrm{e_c} = 1.602 \cdot 10^{-19} \cdot \mathrm{C}$                 | Elementary Charge        |
-| $\mathrm{e_0} = 8.854187817 \cdot 10^{-12} \cdot \mathrm{\frac{F}{m}}$ | Electric Constant        |
-| $\mathrm{k_e} = 8.99 \cdot 10^9 \cdot \mathrm{\frac{Nm^2}{C^2}}$       | Coulomb constant         |
-| $\mathrm{c} = 2.99792458 \cdot 10^8 \cdot \mathrm{\frac{m}{s}}$        | Speed of light in vacuum |
-| $\mathrm{m_e} = 9.1093837 \cdot 10^{-31} \cdot \mathrm{kg}$            | Electron mass            |
-| $\mathrm{m_p} = 1.67262192 \cdot 10^{-27} \cdot \mathrm{kg}$           | Proton mass              |
-| $\mathrm{m_n} = 1.674927 \cdot 10^{-27} \cdot \mathrm{kg}$             | Neutron mass             |
-| $\mathrm{R_g} = 8.31446 \cdot \mathrm{JK^{-1}mol^{-1}}$                | Ideal gas constant       |
-| $\mathrm{R_a} = 0.0821 \cdot \mathrm{L\,atm\,K^{-1}\,mol^{-1}}$        | Ideal gas constant (atm) |
-| $\mathrm{C_K} = 273.15 \cdot \mathrm{K}$                               | Celsius–Kelvin offset    |
-| $\mathrm{h} = 6.62607015 \cdot 10^{-34} \cdot \mathrm{Js}$             | Planck constant          |
-| $\mathrm{a_0} = 5.291772 \cdot 10^{-11} \cdot \mathrm{m}$              | Bohr radius              |
-| $\mathrm{N_A} = 6.022 \cdot 10^{23} \cdot \mathrm{mol^{-1}}$           | Avogadro constant        |
-| $\epsilon_0 = 8.854187817 \cdot 10^{-12} \cdot \mathrm{F\,m^{-1}}$     | Vacuum permittivity      |
-| $\mu_0 = 4\pi \cdot 10^{-7} \cdot \mathrm{H\,m^{-1}}$                  | Vacuum permeability      |
-| $\alpha = 7.2973525693 \cdot 10^{-3}$                                  | Fine-structure constant  |
+| Constant       | Description                                    | Value                                              |
+| -------------- | ---------------------------------------------- | -------------------------------------------------- |
+| $\mathrm{g}$   | Gravitational acceleration                     | $9.8 \ \frac{m}{s^2}$                              |
+| $\mathrm{e}$   | Euler's number                                 | $2.718281828459$                                   |
+| $\mathrm{e_c}$ | Elementary charge                              | $1.602 \cdot 10^{-19} \ C$                         |
+| $\mathrm{e_0}$ | Electric constant (permittivity of free space) | $8.854187817 \cdot 10^{-12} \ \frac{F}{m}$         |
+| $\epsilon_0$   | Vacuum permittivity (alias for e_0)            | $8.854187817 \cdot 10^{-12} \ \frac{F}{m}$         |
+| $\mathrm{k}$   | Coulomb constant                               | $8.99 \cdot 10^9 \ \frac{Nm^2}{C^2}$               |
+| $\mu_0$        | Vacuum permeability                            | $4\pi \cdot 10^{-7} \ \frac{H}{m}$                 |
+| $\mathrm{c}$   | Speed of light in vacuum                       | $2.99792458 \cdot 10^8 \ \frac{m}{s}$              |
+| $\mathrm{m_e}$ | Electron mass                                  | $9.1093837 \cdot 10^{-31} \ kg$                    |
+| $\mathrm{m_p}$ | Proton mass                                    | $1.67262192 \cdot 10^{-27} \ kg$                   |
+| $\mathrm{m_n}$ | Neutron mass                                   | $1.674927 \cdot 10^{-27} \ kg$                     |
+| $\mathrm{R_g}$ | Ideal gas constant                             | $8.31446 \ JK^{-1}mol^{-1}$                        |
+| $\mathrm{R_a}$ | Ideal gas constant (atm units)                 | $0.0821 \ ATMLK^{-1}mol^{-1}$                      |
+| $\mathrm{C_K}$ | Celsius->Kelvin offset                         | $273.15 \ K$                                       |
+| $\mathrm{h}$   | Planck constant                                | $6.62607015 \cdot 10^{-34} \ Js$                   |
+| $\mathrm{a_0}$ | Bohr radius                                    | $5.291772 \cdot 10^{-11} \ m$                      |
+| $\mathrm{N_A}$ | Avogadro constant                              | $6.022 \cdot 10^{23} \ mol^{-1}$                   |
+| $\alpha$       | Fine-structure constant                        | $7.2973525693 \cdot 10^{-3}$                       |
 <!-- CONSTANTS_END -->
 
 ### Functions
@@ -159,18 +159,15 @@ $\pm$ `Plus-minus; evaluates an expression as both its positive and negative for
 
 #### Trigonometric
 
-`sin` `cos` `tan`
-`sec` `csc` `cot`
+`sin` `cos` `tan` `sec` `csc` `cot`
 
 #### Inverse Trigonometric
 
-`arcsin` `arccos` `arctan`
-`arcsec` `arccsc` `arccot`
+`arcsin` `arccos` `arctan` `arcsec` `arccsc` `arccot`
 
 #### Hyperbolic
 
-`sinh` `cosh` `tanh`
-`sech` `csch` `coth`
+`sinh` `cosh` `tanh` `sech` `csch` `coth`
 
 #### Inverse Hyperbolic
 
@@ -219,6 +216,10 @@ $\pm$ `Plus-minus; evaluates an expression as both its positive and negative for
 #### Angle Conversion
 
 `rad` `deg`
+
+#### Other
+
+`sin^{-1}` `cos^{-1}` `tan^{-1}` `sec^{-1}` `csc^{-1}` `cot^{-1}` `tr`
 <!-- FUNCTIONS_END -->
 
 ## Footnotes
