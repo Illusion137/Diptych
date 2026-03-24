@@ -2,7 +2,7 @@ name: Deploy
 
 on:
     repository_dispatch:
-        types: [nero-release]
+        types: [nero-release, nero-readme-release]
     workflow_dispatch:
 
 permissions:
@@ -10,6 +10,7 @@ permissions:
 
 jobs:
     build-tauri:
+        if: github.event_name == 'workflow_dispatch' || github.event.action == 'nero-release'
         strategy:
             fail-fast: false
             matrix:
@@ -83,6 +84,7 @@ jobs:
                   if-no-files-found: ignore
 
     publish-tauri-release:
+        if: github.event_name == 'workflow_dispatch' || github.event.action == 'nero-release'
         needs: build-tauri
         runs-on: ubuntu-22.04
 
@@ -110,6 +112,7 @@ jobs:
                   files: artifacts/**/*
 
     deploy-pages:
+        if: github.event_name == 'workflow_dispatch' || github.event.action == 'nero-release'
         needs: build-tauri
         runs-on: ubuntu-22.04
 
@@ -133,6 +136,14 @@ jobs:
               run: |
                   python3 scripts/sync_readme_sections.py nero_README.md README.md \
                     --sections CONSTANTS FUNCTIONS
+
+            - name: Commit synced README
+              run: |
+                  git config user.name "github-actions[bot]"
+                  git config user.email "github-actions[bot]@users.noreply.github.com"
+                  git add README.md
+                  git diff --cached --quiet || git commit -m "chore: sync constants and functions from Nero ${{ github.event.client_payload.tag }}"
+                  git push
 
             - name: Set up Node.js
               uses: actions/setup-node@v4
@@ -181,4 +192,32 @@ jobs:
                   git config user.email "github-actions[bot]@users.noreply.github.com"
                   git add -A
                   git commit -m "chore: deploy Everett ${{ steps.version.outputs.version }}" || echo "Nothing to commit"
+                  git push
+
+    sync-readme:
+        if: github.event.action == 'nero-readme-release'
+        runs-on: ubuntu-22.04
+
+        steps:
+            - name: Checkout Everett
+              uses: actions/checkout@v4
+
+            - name: Download Nero README
+              env:
+                  GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+              run: |
+                  gh release download --repo Illusion137/Nero --pattern "README.md" --output nero_README.md --clobber || \
+                    curl -sf https://raw.githubusercontent.com/Illusion137/Nero/main/README.md -o nero_README.md
+
+            - name: Sync README sections from Nero
+              run: |
+                  python3 scripts/sync_readme_sections.py nero_README.md README.md \
+                    --sections CONSTANTS FUNCTIONS
+
+            - name: Commit synced README
+              run: |
+                  git config user.name "github-actions[bot]"
+                  git config user.email "github-actions[bot]@users.noreply.github.com"
+                  git add README.md
+                  git diff --cached --quiet || git commit -m "chore: sync constants and functions from Nero ${{ github.event.client_payload.tag }}"
                   git push
