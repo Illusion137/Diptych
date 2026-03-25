@@ -67,6 +67,14 @@ jobs:
               uses: tauri-apps/tauri-action@v0
               env:
                   GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+                  TAURI_SIGNING_PRIVATE_KEY: ${{ secrets.TAURI_SIGNING_PRIVATE_KEY }}
+                  TAURI_SIGNING_PRIVATE_KEY_PASSWORD: ${{ secrets.TAURI_SIGNING_PRIVATE_KEY_PASSWORD }}
+                  APPLE_CERTIFICATE: ${{ secrets.APPLE_CERTIFICATE }}
+                  APPLE_CERTIFICATE_PASSWORD: ${{ secrets.APPLE_CERTIFICATE_PASSWORD }}
+                  APPLE_SIGNING_IDENTITY: ${{ secrets.APPLE_SIGNING_IDENTITY }}
+                  APPLE_ID: ${{ secrets.APPLE_ID }}
+                  APPLE_PASSWORD: ${{ secrets.APPLE_PASSWORD }}
+                  APPLE_TEAM_ID: ${{ secrets.APPLE_TEAM_ID }}
               with:
                   args: --verbose
 
@@ -77,10 +85,14 @@ jobs:
                   path: |
                       src-tauri/target/release/bundle/dmg/*.dmg
                       src-tauri/target/release/bundle/macos/*.app.tar.gz
+                      src-tauri/target/release/bundle/macos/*.app.tar.gz.sig
                       src-tauri/target/release/bundle/appimage/*.AppImage
+                      src-tauri/target/release/bundle/appimage/*.AppImage.sig
                       src-tauri/target/release/bundle/deb/*.deb
                       src-tauri/target/release/bundle/msi/*.msi
+                      src-tauri/target/release/bundle/msi/*.msi.sig
                       src-tauri/target/release/bundle/nsis/*.exe
+                      src-tauri/target/release/bundle/nsis/*.exe.sig
                   if-no-files-found: ignore
 
     publish-tauri-release:
@@ -104,12 +116,61 @@ jobs:
                     echo "tag=app-v$(date -u +%Y%m%d%H%M%S)" >> "$GITHUB_OUTPUT"
                   fi
 
+            - name: Generate update manifest (latest.json)
+              run: |
+                  TAG="${{ steps.tag.outputs.tag }}"
+                  BASE_URL="https://github.com/Illusion137/Everett/releases/download/${TAG}"
+                  PUB_DATE="$(date -u +%Y-%m-%dT%H:%M:%SZ)"
+
+                  MACOS_APP=$(find artifacts -name "*.app.tar.gz" | head -1)
+                  LINUX_APP=$(find artifacts -name "*.AppImage" | head -1)
+                  WIN_APP=$(find artifacts -name "*.msi" | head -1)
+
+                  MACOS_SIG=""
+                  LINUX_SIG=""
+                  WIN_SIG=""
+                  [ -n "$MACOS_APP" ] && MACOS_SIG=$(cat "${MACOS_APP}.sig" 2>/dev/null || true)
+                  [ -n "$LINUX_APP" ] && LINUX_SIG=$(cat "${LINUX_APP}.sig" 2>/dev/null || true)
+                  [ -n "$WIN_APP" ] && WIN_SIG=$(cat "${WIN_APP}.sig" 2>/dev/null || true)
+
+                  MACOS_FILE=$(basename "$MACOS_APP" 2>/dev/null || true)
+                  LINUX_FILE=$(basename "$LINUX_APP" 2>/dev/null || true)
+                  WIN_FILE=$(basename "$WIN_APP" 2>/dev/null || true)
+
+                  python3 - <<PYEOF
+                  import json, os
+                  tag = os.environ.get("TAG", "")
+                  base = os.environ.get("BASE_URL", "")
+                  manifest = {
+                    "version": tag,
+                    "notes": "See the release page for details.",
+                    "pub_date": "$PUB_DATE",
+                    "platforms": {}
+                  }
+                  if "$MACOS_SIG" and "$MACOS_FILE":
+                    entry = {"signature": "$MACOS_SIG", "url": f"{base}/$MACOS_FILE"}
+                    manifest["platforms"]["darwin-aarch64"] = entry
+                    manifest["platforms"]["darwin-x86_64"] = entry
+                  if "$LINUX_SIG" and "$LINUX_FILE":
+                    manifest["platforms"]["linux-x86_64"] = {"signature": "$LINUX_SIG", "url": f"{base}/$LINUX_FILE"}
+                  if "$WIN_SIG" and "$WIN_FILE":
+                    manifest["platforms"]["windows-x86_64"] = {"signature": "$WIN_SIG", "url": f"{base}/$WIN_FILE"}
+                  with open("latest.json", "w") as f:
+                    json.dump(manifest, f, indent=2)
+                  print("Generated latest.json")
+                  PYEOF
+              env:
+                  TAG: ${{ steps.tag.outputs.tag }}
+                  BASE_URL: https://github.com/Illusion137/Everett/releases/download/${{ steps.tag.outputs.tag }}
+
             - name: Create GitHub Release with all platform binaries
               uses: softprops/action-gh-release@v2
               with:
                   tag_name: ${{ steps.tag.outputs.tag }}
                   name: Everett ${{ steps.tag.outputs.tag }}
-                  files: artifacts/**/*
+                  files: |
+                      artifacts/**/*
+                      latest.json
 
     deploy-pages:
         if: github.event_name == 'workflow_dispatch' || github.event.action == 'nero-release'
