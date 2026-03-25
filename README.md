@@ -131,6 +131,7 @@ $\pm$ `Plus-minus; evaluates an expression as both its positive and negative for
 | Constant       | Description                                    | Value                                              |
 | -------------- | ---------------------------------------------- | -------------------------------------------------- |
 | $\mathrm{g}$   | Gravitational acceleration                     | $9.8 \ \frac{m}{s^2}$                              |
+| $\mathrm{G}$   | Gravitational constant                         | $6.6743 \cdot 10^{-11} \ \frac{Nm^2}{kg^2}$        |
 | $\mathrm{e}$   | Euler's number                                 | $2.718281828459$                                   |
 | $\mathrm{e_c}$ | Elementary charge                              | $1.602 \cdot 10^{-19} \ C$                         |
 | $\mathrm{e_0}$ | Electric constant (permittivity of free space) | $8.854187817 \cdot 10^{-12} \ \frac{F}{m}$         |
@@ -142,7 +143,7 @@ $\pm$ `Plus-minus; evaluates an expression as both its positive and negative for
 | $\mathrm{m_p}$ | Proton mass                                    | $1.67262192 \cdot 10^{-27} \ kg$                   |
 | $\mathrm{m_n}$ | Neutron mass                                   | $1.674927 \cdot 10^{-27} \ kg$                     |
 | $\mathrm{R_g}$ | Ideal gas constant                             | $8.31446 \ JK^{-1}mol^{-1}$                        |
-| $\mathrm{R_a}$ | Ideal gas constant (atm units)                 | $0.0821 \ ATMLK^{-1}mol^{-1}$                      |
+| $\mathrm{R_a}$ | Ideal gas constant (atm units)                 | $0.0821 \ \atmLK^{-1}mol^{-1}$                     |
 | $\mathrm{C_K}$ | Celsius->Kelvin offset                         | $273.15 \ K$                                       |
 | $\mathrm{h}$   | Planck constant                                | $6.62607015 \cdot 10^{-34} \ Js$                   |
 | $\mathrm{a_0}$ | Bohr radius                                    | $5.291772 \cdot 10^{-11} \ m$                      |
