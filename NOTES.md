@@ -1884,7 +1884,7 @@ $\mu = $Magnetic Dipole Moment
 
 Ampere's Law to relate a source (current) to the fields created by theat source (magnetic fields around current wires).
 
-$\int \vec{B} \cdot d\vec{l} = \mu_0 I_{enc}$&#x20;
+$\int \vec{B} \cdot d\vec{l} = \mu_0 I_{enc}$
 
 Where: $B = \frac{\mu_0I}{2\pi r}$
 
@@ -1903,3 +1903,125 @@ $\rightarrow BL = \mu_0nLI \rightarrow B = \mu_0nI$
 ##### Field of a Toroid
 
 $B = \frac{\mu_0IN}{2\pi}\frac{1}{r}$
+
+### The Bohr Magneton
+
+The nucleus of an atom has a net positive charge while the negatively charged electrons orbit around the nucleus in a cloud.
+
+If electric physics comes from charge and magnetic physics comes from moving charge, then atoms acts like magnets?
+
+Magnetic dipole moment for the orbiting electron:
+
+$\mu=IA=I\pi r^2$
+
+The time for the orbit: $T=\frac{2\pi r}{v}$
+
+Magnitude of equivalent current:
+
+$I = \frac{|q|}{T}=\frac{ev}{2\pi r}$
+
+Angular momentum
+
+$|L|=|\vec{r}\times \vec{p}| \rightarrow L = mvr$
+
+Electron has negative charge, so invert direction.
+
+$\mu=\frac{ev}{2\pi r}(\pi r^2) = \frac{evr}{2} = \frac{e}{2m}L$
+
+Bohr magneton:$\frac{e_ch}{4\pi m_e} m^2\cdot A$
+
+Spin angular momentum:$ \mu\_{spin} = 1.001 \mu_B$
+
+### Magnetization
+
+The total magnetic moment / the volume of the material
+
+$\vec{M} = \frac{\mu_{total}}{V}$
+
+Thus, the total magnetic field in a material is:
+
+$\vec{B}=\vec{B_0}+\mu_0\vec{M}$
+
+Where$ \vec{B_0}$is the field caused by the current in the conductor
+
+### Paramagnetism and Diamagnetism
+
+Paramagnetism slightly more
+
+Diamagnetism - slightly less
+
+The amount of permeability differs from unitiy (1), is called the magnetic susceptibility, denoted by $X_m$
+
+$X_m = K_m-1 $
+
+Both are dimensionless quantities
+
+#### Curie’s Law
+
+$M = C\frac{B}{T}$
+
+M is the magnetization
+
+C is a constant called the Curie constant (material based)
+
+T is the temperature
+
+### Ferromagnetism
+
+Pretty much just iron. Closer to paramegnetic.
+
+Magnetic domains, where the most to all the magnetic moments in the reigon are in the same direction.
+
+\~$K_m = 1000 - 100,000$
+
+This is why an iron nail goes to a magnetic so quickly.
+
+Saturation magnetization, the max amount of magnetization. All moments pointed in the same direction.
+
+<br />
+
+### Electromagnetic Induction
+
+Moved Magnetic Field near wire creates induced current.
+
+The charge in the coil is callled induced EMF.
+
+This process is called induction
+
+$E = -\frac{d\Phi_B}{dt}$
+
+The induced EMF in a close loop = the negative of the time rate of change of magnetic flux through the loop
+
+<br />
+
+If flux is increasing then the induced EMF/current is negative.
+
+If flux is decreasing then the induced EMF/current is positive.
+
+Right hand rule. Point in direction of induced EMF, curl finders around the $\vec{A}$ vector.
+
+$\vec{A} = vector area$
+
+For a coil
+
+$E = -N\frac{d\Phi_B}{dt}$
+
+<br />
+
+#### The Slidewire Generator
+
+$\Phi_B = BA=BLx$
+
+$E=BLv$
+
+Induced Current:$I = E/R$
+
+Force: $F=\frac{B^2L^2v}{R}$
+
+#### Lenz’s Law
+
+The magnitude of the field is increasing, so there is an induced EMF driving a current as shown.
+
+We can find this from Farday’s Law (but with a negative sign)
+
+$E=-\frac{d\Phi_B}{dt}$

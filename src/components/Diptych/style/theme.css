@@ -27,6 +27,7 @@
 
     .ProseMirror-focused {
         outline: none;
+        --prosemirror-virtual-cursor-color: var(--color-text);
     }
 
     .milkdown-toolbar .toolbar-item svg {
