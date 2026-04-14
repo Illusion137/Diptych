@@ -89,7 +89,7 @@ button:focus-visible {
 }
 
 .mq-editable-field .mq-selection {
-	background-color: rgba(229, 210, 130, 0.25) !important; /* Nero gold selection */
+	background-color: rgba(229, 210, 130, 0.5) !important; /* Nero gold selection */
 }
 
 .mq-math-mode {
@@ -98,7 +98,7 @@ button:focus-visible {
 
 /* MathQuill cursor */
 .mq-cursor {
-	border-left: 1px solid var(--color-text) !important;
+	border-left: 2px solid var(--color-text) !important;
 }
 
 /* Override MathQuill's default focused class to not apply its own outline */
