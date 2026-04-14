@@ -42,7 +42,7 @@ const MathExpressionEditor = forwardRef<MathExpressionEditorHandle, MathExpressi
 			on_click,
 			on_field_focused,
 		},
-		ref
+		ref,
 	) => {
 		const [math_latex, set_math_latex] = useState(initial_latex);
 		const [unit_latex, set_unit_latex] = useState(initial_unit_latex);
@@ -182,6 +182,7 @@ const MathExpressionEditor = forwardRef<MathExpressionEditorHandle, MathExpressi
 								}}
 								config={{
 									spaceBehavesLikeTab: true,
+									autoOperatorNames: "ans",
 									autoCommands: "mu Omega",
 									handlers: {
 										moveOutOf(direction) {
@@ -216,7 +217,7 @@ const MathExpressionEditor = forwardRef<MathExpressionEditorHandle, MathExpressi
 				</div>
 			</div>
 		);
-	}
+	},
 );
 
 export default MathExpressionEditor;
