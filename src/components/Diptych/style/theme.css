@@ -30,6 +30,10 @@
         --prosemirror-virtual-cursor-color: var(--color-text);
     }
 
+    .milkdown-latex-inline-edit .ProseMirror {
+        caret-color: var(--color-text);
+    }
+
     .milkdown-toolbar .toolbar-item svg {
         color: var(--crepe-color-on-background) !important;
         fill: var(--crepe-color-on-background) !important;
